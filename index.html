@@ -22,7 +22,7 @@
       --shadow: 0 18px 50px rgba(0, 0, 0, .45);
       --radius: 20px;
       --radius2: 14px;
-      --maxw: 1300px;
+      --maxw: 1600px;
     }
 
     * {
@@ -219,8 +219,8 @@
 
     .stage {
       width: min(var(--maxw), 100%);
-      height: min(785px, calc(100vh - 120px));
-      position: relative;
+      height: min(990px, calc(100vh - 120px));
+      position:absolute;
     }
 
     .slide {
@@ -1030,8 +1030,8 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      background: rgba(2, 6, 23, .86);
+      padding: 12px;
+      background: rgba(2, 6, 23, .45);
     }
 
     .gallery-modal.open {
@@ -1040,28 +1040,28 @@
 
     .gallery-modal-box {
       position: relative;
-      width: min(1120px, 96vw);
-      height: min(82vh, 760px);
-      border-radius: var(--radius);
+      width: min(1400px, 98vw);
+      height: min(90vh, 90vh);
+      border-radius: calc(var(--radius) - 6px);
       border: 1px solid var(--stroke);
-      background: rgba(2, 6, 23, .72);
+      background: rgba(2, 6, 23, .12);
       box-shadow: var(--shadow);
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      padding: 56px 70px;
+      padding: 16px;
     }
 
     .gallery-modal-image {
+      width: 100%;
+      height: 100%;
       max-width: 100%;
       max-height: 100%;
-      width: auto;
-      height: auto;
       object-fit: contain;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, .12);
-      background: rgba(255, 255, 255, .02);
+      border-radius: 8px;
+      border: none;
+      background: transparent;
     }
 
     .gallery-modal-btn {
@@ -1528,10 +1528,11 @@
 <body>
   <div class="topbar">
     <div class="topbar-inner">
+      <!--
       <div class="brand">
         <img src="assets/ecojob_logo_cromatico_dark.svg" alt="Ecojob" />
       </div>
-
+    -->
       <div class="controls">
         <button class="btn" id="prevBtn" title="Anterior (←)">← <span style="font-weight:900">Anterior</span></button>
         <div class="pill" id="slidePill">Slide 1/15</div>
