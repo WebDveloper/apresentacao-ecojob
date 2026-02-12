@@ -1,0 +1,28 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200">
+  <defs>
+    <linearGradient id="ecoGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <text x="20" y="130" font-family="Montserrat, Arial" font-size="110" fill="url(#ecoGrad)">
+    eco
+  </text>
+
+  <text x="250" y="130" font-family="Montserrat Black, Arial" font-size="110" fill="#ffffff">
+    JOB
+  </text>
+
+  <g fill="#22c55e">
+    <rect x="470" y="50" width="22" height="22"/>
+    <rect x="497" y="50" width="22" height="22"/>
+    <rect x="524" y="50" width="22" height="22"/>
+    <rect x="470" y="77" width="22" height="22"/>
+    <rect x="497" y="77" width="22" height="22"/>
+    <rect x="524" y="77" width="22" height="22"/>
+  </g>
+</svg>

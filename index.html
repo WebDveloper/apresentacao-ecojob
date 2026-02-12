@@ -1,0 +1,4438 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="assets/ecojob_appicon.png" />
+  <title>Ecojob — Echo-R2 | Apresentação Comercial</title>
+  <style>
+    :root {
+      --bg0: #06121f;
+      --bg1: #020617;
+      --card: #0b1b2b;
+      --card2: #0a1524;
+      --stroke: rgba(255, 255, 255, .10);
+      --text: rgba(255, 255, 255, .92);
+      --muted: rgba(255, 255, 255, .68);
+      --green: #22c55e;
+      --cyan: #38bdf8;
+      --amber: #fbbf24;
+      --red: #fb7185;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .45);
+      --radius: 20px;
+      --radius2: 14px;
+      --maxw: 1300px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+      background: radial-gradient(1200px 700px at 20% 15%, rgba(56, 189, 248, .14), transparent 55%),
+        radial-gradient(1000px 600px at 80% 25%, rgba(34, 197, 94, .12), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    /* base resets for topbar and layout will follow */
+
+    .topbar {
+      position: fixed;
+      top: 8px;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .topbar-inner {
+      width: min(var(--maxw), calc(100% - 28px));
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      min-height: 50px;
+      pointer-events: auto;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand img {
+      display: block;
+      height: 34px;
+      width: auto;
+      max-width: min(280px, 55vw);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, .10), 0 0 22px rgba(34, 197, 94, .35);
+    }
+
+    .brand b {
+      letter-spacing: .6px
+    }
+
+    .brand span {
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      min-height: 50px;
+      margin-top: 4px;
+      pointer-events: auto;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .05);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: .2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn:hover {
+      border-color: rgba(56, 189, 248, .40)
+    }
+
+    .btn:active {
+      transform: translateY(1px)
+    }
+
+    /* visual state for play button when autoplay is active */
+    .btn.playing {
+      border-color: rgba(34,197,94,.45);
+      box-shadow: 0 10px 36px rgba(34,197,94,.08);
+      background: linear-gradient(180deg, rgba(34,197,94,.06), rgba(34,197,94,.02));
+    }
+
+    .pill {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .04);
+      user-select: none;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .04);
+      user-select: none;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .switch {
+      width: 42px;
+      height: 24px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid var(--stroke);
+      position: relative;
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+
+    .knob {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(56, 189, 248, .95);
+      box-shadow: 0 8px 20px rgba(56, 189, 248, .22);
+      transition: .22s;
+    }
+
+    .switch.on .knob {
+      left: 21px;
+      background: rgba(34, 197, 94, .95);
+      box-shadow: 0 8px 20px rgba(34, 197, 94, .22)
+    }
+
+    /* Deck */
+    .deck {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 84px 14px 18px;
+    }
+
+    .stage {
+      width: min(var(--maxw), 100%);
+      height: min(785px, calc(100vh - 120px));
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .03));
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(14px) scale(.985);
+      transition: opacity .35s ease, transform .35s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .slide::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(900px 420px at 20% 20%, rgba(34, 197, 94, .15), transparent 55%),
+        radial-gradient(900px 420px at 85% 35%, rgba(56, 189, 248, .14), transparent 55%);
+      filter: blur(0px);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      /* Evita que o footer fixo (posição absoluta) corte o conteúdo no rodapé */
+      padding: 26px;
+      padding-bottom: 86px;
+      display: grid;
+      gap: 18px;
+    }
+
+    /* Common */
+    h1,
+    h2,
+    h3 {
+      margin: 0
+    }
+
+    h1 {
+      font-size: 44px;
+      line-height: 1.05;
+      letter-spacing: .2px
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 1.15
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, .10);
+      border: 1px solid rgba(34, 197, 94, .25);
+      color: rgba(200, 255, 220, .95);
+      font-weight: 800;
+      letter-spacing: .35px;
+      font-size: 12px;
+      width: max-content;
+    }
+
+    .kicker .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, .15), 0 0 18px rgba(34, 197, 94, .35);
+      animation: pulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.12)
+      }
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 34px
+      }
+
+      .stage {
+        height: min(820px, calc(100vh - 120px));
+      }
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(6, 18, 31, .78), rgba(2, 6, 23, .70));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius2);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(700px 260px at 0% 0%, rgba(56, 189, 248, .10), transparent 55%),
+        radial-gradient(700px 260px at 100% 0%, rgba(34, 197, 94, .10), transparent 55%);
+      pointer-events: none;
+    }
+
+    .card>* {
+      position: relative;
+      z-index: 1
+    }
+
+    /* Intro card theme + subtle float animation */
+    .intro-card {
+      background: linear-gradient(180deg, rgba(56, 189, 248, .06), rgba(2, 6, 23, .72));
+      border: 1px solid rgba(56, 189, 248, .08);
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .35);
+      color: var(--text);
+      animation: introFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes introFloat {
+      0% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, .25)
+      }
+
+      50% {
+        transform: translateY(-6px) scale(1.01);
+        box-shadow: 0 28px 50px rgba(0, 0, 0, .35)
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, .25)
+      }
+    }
+
+    /* Intro animation lines and logo */
+    .intro-line {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: transform .6s ease, opacity .6s ease;
+      margin: 10px 0;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+      text-align: left;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .55);
+      white-space: normal;
+      word-break: break-word;
+      width: 100%;
+    }
+
+    .intro-line:first-child {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+
+    .intro-line.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .intro-logo {
+      opacity: 0;
+      transition: opacity .6s ease, transform .6s ease;
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .intro-logo.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .intro-logo img {
+      max-width: 320px;
+      max-height: 72px;
+      display: block;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, .45));
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .badge {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .04);
+      font-size: 13px;
+      color: rgba(255, 255, 255, .82);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 190px;
+    }
+
+    .badge b {
+      color: #fff
+    }
+
+    .ico {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 6px rgba(56, 189, 248, .12);
+      flex: 0 0 auto;
+    }
+
+    .ico.green {
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, .12)
+    }
+
+    .ico.amber {
+      background: var(--amber);
+      box-shadow: 0 0 0 6px rgba(251, 191, 36, .12)
+    }
+
+    /* Slide 1: Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    .hero-visual {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 12px;
+    }
+
+    .product {
+      display: grid;
+      place-items: center;
+      min-height: 420px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--stroke);
+      background: radial-gradient(600px 380px at 50% 35%, rgba(56, 189, 248, .14), rgba(2, 6, 23, .2) 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .01));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product img {
+      width: min(640px, 92%);
+      max-width: 98%;
+      filter: drop-shadow(0 24px 34px rgba(0, 0, 0, .45));
+      transform: translateY(6px);
+      animation: float 3.6s ease-in-out infinite;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(8px)
+      }
+
+      50% {
+        transform: translateY(0)
+      }
+    }
+
+    /* antigo efeito de scan removido */
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .cta .btn {
+      background: rgba(34, 197, 94, .12);
+      border-color: rgba(34, 197, 94, .30);
+    }
+
+    .cta .btn.secondary {
+      background: rgba(56, 189, 248, .10);
+      border-color: rgba(56, 189, 248, .28);
+    }
+
+    /* Slide 2: Problem/Solution */
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      height: 100%;
+    }
+
+    @media (max-width: 980px) {
+      .split {
+        grid-template-columns: 1fr
+      }
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding: 0 0 0 18px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Slide 3: Applications + animation */
+    .app-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      .app-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .scene {
+      position: relative;
+      border-radius: var(--radius2);
+      border: 1px solid var(--stroke);
+      overflow: hidden;
+      background: radial-gradient(650px 320px at 20% 10%, rgba(56, 189, 248, .16), transparent 60%),
+        linear-gradient(180deg, rgba(6, 18, 31, .8), rgba(2, 6, 23, .78));
+      min-height: 360px;
+    }
+
+    .scene .tag {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, .30);
+      background: rgba(34, 197, 94, .10);
+      color: rgba(220, 255, 235, .95);
+      font-weight: 900;
+      letter-spacing: .4px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 6;
+    }
+
+    .scene .tag .pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(34, 197, 94, .12);
+      animation: pulse 1.4s infinite ease-in-out;
+    }
+
+    .sensor {
+      position: absolute;
+      left: 50%;
+      top: 42px;
+      transform: translateX(-50%);
+      width: min(220px, 40%);
+      z-index: 5;
+      filter: drop-shadow(0 22px 30px rgba(0, 0, 0, .45));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .radar {
+      position: absolute;
+      left: 50%;
+      top: 170px;
+      transform: translateX(-50%);
+      width: 360px;
+      height: 220px;
+      z-index: 4;
+      pointer-events: none;
+      opacity: .95;
+    }
+
+    /* Radar signal (substitui seta/feixe) */
+    .radarSignal {
+      position: absolute;
+      left: 50%;
+      top: 170px;
+      transform: translateX(-50%);
+      width: 360px;
+      height: 220px;
+      z-index: 4;
+      pointer-events: none;
+      opacity: .95;
+    }
+
+    .radarSignal .ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(56, 189, 248, .35);
+      box-shadow: 0 0 18px rgba(56, 189, 248, .10);
+      opacity: .0;
+      animation: radarRing 2.6s infinite ease-out;
+    }
+
+    .radarSignal .ring.r2 {
+      border-color: rgba(34, 197, 94, .30);
+      box-shadow: 0 0 18px rgba(34, 197, 94, .10);
+      animation-delay: .65s;
+    }
+
+    .radarSignal .ring.r3 {
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 0 18px rgba(255, 255, 255, .08);
+      animation-delay: 1.3s;
+    }
+
+    @keyframes radarRing {
+      0% {
+        width: 18px;
+        height: 18px;
+        opacity: .85;
+      }
+
+      70% {
+        opacity: .18;
+      }
+
+      100% {
+        width: 320px;
+        height: 320px;
+        opacity: 0;
+      }
+    }
+
+    .radar .beam {
+      position: absolute;
+      left: 50%;
+      top: 20px;
+      width: 0;
+      height: 0;
+      border-left: 140px solid transparent;
+      border-right: 140px solid transparent;
+      border-top: 190px solid rgba(56, 189, 248, .10);
+      transform: translateX(-50%);
+      filter: drop-shadow(0 10px 18px rgba(56, 189, 248, .10));
+      animation: beam 1.8s infinite ease-in-out;
+    }
+
+    .radar .beam2 {
+      position: absolute;
+      left: 50%;
+      top: 34px;
+      width: 0;
+      height: 0;
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-top: 150px solid rgba(34, 197, 94, .12);
+      transform: translateX(-50%);
+      animation: beam 1.8s infinite ease-in-out reverse;
+    }
+
+    @keyframes beam {
+
+      0%,
+      100% {
+        opacity: .35;
+        transform: translateX(-50%) scaleY(.92)
+      }
+
+      50% {
+        opacity: .95;
+        transform: translateX(-50%) scaleY(1.03)
+      }
+    }
+
+    /* water & level */
+    .water {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 38%;
+      background: linear-gradient(180deg, rgba(56, 189, 248, .90), rgba(14, 165, 233, .86));
+      z-index: 2;
+      animation: level 5.8s infinite ease-in-out;
+    }
+
+    @keyframes level {
+      0% {
+        height: 32%
+      }
+
+      50% {
+        height: 62%
+      }
+
+      100% {
+        height: 32%
+      }
+    }
+
+    .waves {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -18px;
+      height: 36px;
+      background: radial-gradient(18px 14px at 16px 18px, rgba(255, 255, 255, .55), transparent 62%) repeat-x;
+      background-size: 46px 36px;
+      opacity: .35;
+      animation: wave 2.2s infinite linear;
+    }
+
+    @keyframes wave {
+      from {
+        background-position-x: 0
+      }
+
+      to {
+        background-position-x: 46px
+      }
+    }
+
+    /* scene decorations */
+    .hills {
+      position: absolute;
+      left: -20px;
+      right: -20px;
+      bottom: 0;
+      height: 46%;
+      background:
+        radial-gradient(220px 120px at 20% 80%, rgba(34, 197, 94, .12), transparent 65%),
+        radial-gradient(220px 120px at 80% 85%, rgba(34, 197, 94, .10), transparent 65%),
+        radial-gradient(260px 140px at 55% 95%, rgba(56, 189, 248, .09), transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .dam {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 38%;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02)),
+        linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(0, 0, 0, 0));
+      z-index: 1;
+      display: none;
+    }
+
+    .pv {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 72%;
+      height: 52%;
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(0, 0, 0, 0));
+      z-index: 1;
+      display: none;
+    }
+
+    .pv:before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      transform: translateX(-50%);
+      width: 64%;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    /* live readout */
+    .readout {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      z-index: 7;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: min(220px, 46%);
+    }
+
+    .meter {
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(2, 6, 23, .60);
+      backdrop-filter: blur(8px);
+    }
+
+    .meter .t {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .35px;
+      font-weight: 900
+    }
+
+    .meter .v {
+      font-size: 18px;
+      font-weight: 900;
+      margin-top: 4px
+    }
+
+    .meter .v b {
+      color: var(--cyan)
+    }
+
+    .meter .v .ok {
+      color: var(--green)
+    }
+
+    .meter .mini {
+      margin-top: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .08);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .meter .mini>i {
+      display: block;
+      height: 100%;
+      width: 52%;
+      background: linear-gradient(90deg, rgba(56, 189, 248, .95), rgba(34, 197, 94, .95));
+      animation: fill 5.8s infinite ease-in-out;
+    }
+
+    @keyframes fill {
+      0% {
+        width: 34%
+      }
+
+      50% {
+        width: 78%
+      }
+
+      100% {
+        width: 34%
+      }
+    }
+
+    /* specs list */
+    .specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .spec {
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .04);
+      opacity: .65;
+      transform: translateY(0);
+      transition: .28s ease;
+    }
+
+    .spec .k {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .35px;
+      font-weight: 900
+    }
+
+    .spec .v {
+      margin-top: 6px;
+      font-weight: 900;
+      font-size: 15px;
+      color: rgba(255, 255, 255, .90)
+    }
+
+    .spec.active {
+      opacity: 1;
+      border-color: rgba(56, 189, 248, .40);
+      background: rgba(56, 189, 248, .08);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(0, 0, 0, .25);
+    }
+
+    /* Slide footer */
+    .footer {
+      position: absolute;
+      inset: auto 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(2, 6, 23, .45);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .35px;
+    }
+
+    .bar {
+      width: 180px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .08);
+      overflow: hidden;
+    }
+
+    .bar>i {
+      display: block;
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(90deg, rgba(56, 189, 248, .95), rgba(34, 197, 94, .95));
+      transition: width .35s ease;
+    }
+
+    .hint {
+      position: absolute;
+      right: 16px;
+      color: rgba(255, 255, 255, .55);
+      font-size: 12px;
+    }
+
+    .hint b {
+      color: rgba(255, 255, 255, .80)
+    }
+
+    .gallery-photo {
+      cursor: pointer;
+    }
+
+    .gallery-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(2, 6, 23, .86);
+    }
+
+    .gallery-modal.open {
+      display: flex;
+    }
+
+    .gallery-modal-box {
+      position: relative;
+      width: min(1120px, 96vw);
+      height: min(82vh, 760px);
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background: rgba(2, 6, 23, .72);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 56px 70px;
+    }
+
+    .gallery-modal-image {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .gallery-modal-btn {
+      position: absolute;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .08);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-weight: 900;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .gallery-modal-btn:hover {
+      border-color: rgba(56, 189, 248, .42);
+    }
+
+    .gallery-modal-close {
+      top: 12px;
+      right: 12px;
+      font-size: 18px;
+    }
+
+    .gallery-modal-prev {
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+    }
+
+    .gallery-modal-next {
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+    }
+
+    .gallery-modal-count {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255, 255, 255, .04);
+      font-weight: 800;
+      letter-spacing: .25px;
+    }
+
+    /* Slide 6: Live charts (NBS) */
+    .charts-wrap {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 18px;
+      height: 100%;
+      align-items: stretch;
+    }
+
+    @media (max-width: 980px) {
+      .charts-wrap {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 900;
+      letter-spacing: .35px;
+      text-transform: uppercase;
+    }
+
+    .input,
+    .select {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(2, 6, 23, .55);
+      color: var(--text);
+      outline: none;
+      font-weight: 800;
+    }
+
+    .input:focus,
+    .select:focus {
+      border-color: rgba(56, 189, 248, .45);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, .12)
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .row .btn {
+      flex: 0 0 auto
+    }
+
+    .statusline {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .statusline b {
+      color: rgba(255, 255, 255, .92)
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: rgba(255, 255, 255, .04);
+      color: rgba(255, 255, 255, .78);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .25px;
+      user-select: none;
+    }
+
+    .charts {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+      height: 100%;
+    }
+
+    .chart {
+      position: relative;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(2, 6, 23, .40);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .chart h3 {
+      font-size: 13px;
+      letter-spacing: .25px;
+      margin: 0 0 8px 0;
+      color: rgba(255, 255, 255, .88);
+    }
+
+    canvas.chartCanvas {
+      width: 100%;
+      height: calc(100% - 26px);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .06);
+      display: block;
+    }
+
+    .hintbox {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(255, 255, 255, .14);
+      background: rgba(255, 255, 255, .03);
+      color: rgba(255, 255, 255, .70);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+
+    /* Tooltip dos gráficos (canvas) */
+    .chartTip {
+      position: fixed;
+      left: 0;
+      top: 0;
+      transform: translate(-9999px, -9999px);
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(2, 6, 23, .88);
+      border: 1px solid rgba(255, 255, 255, .12);
+      color: rgba(255, 255, 255, .92);
+      font: 12px/1.25 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      pointer-events: none;
+      z-index: 9999;
+      max-width: min(320px, 80vw);
+      white-space: nowrap;
+    }
+
+    .chartTip .t {
+      color: rgba(255, 255, 255, .68);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    /* Thermometer visual */
+    .thermometer {
+      position: absolute;
+      right: 12px;
+      top: auto;
+      bottom: 12px;
+      width: 56px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 12;
+      pointer-events: none;
+      --thermColor: var(--cyan);
+    }
+
+    .thermometer .tube {
+      position: relative;
+      width: 14px;
+      height: 180px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 6px 18px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    .thermometer .fill {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), var(--thermColor));
+      transition: height .12s linear, background .12s linear;
+    }
+
+    .thermometer .bulb {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18), var(--thermColor));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    .thermometer .label {
+      position: absolute;
+      right: 72px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 800;
+      font-size: 12px;
+      pointer-events: none;
+      text-align: right;
+      width: 56px;
+    }
+
+    .thermometer .tempVal {
+      position: absolute;
+      right: 72px;
+      bottom: 12px;
+      color: rgba(255, 255, 255, 0.95);
+      font-weight: 900;
+      font-size: 14px;
+      pointer-events: none;
+      width: 56px;
+      text-align: right;
+    }
+
+    /* Scan / vasculhar — slide de Sensores IoT */
+    .search-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+      background: radial-gradient(600px 260px at 50% 20%, rgba(56, 189, 248, .04), transparent 55%), rgba(255, 255, 255, .01);
+    }
+
+    .search-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      transition: filter .35s ease, transform .35s ease;
+      filter: brightness(.55) saturate(.9);
+      user-select: none;
+      -webkit-user-drag: none;
+      object-fit: contain;
+    }
+
+    .search-wrap .search-line {
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 36%;
+      height: 100%;
+      transform: skewX(-14deg);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .search-wrap .spot {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 120px 34px rgba(56, 189, 248, 0.10), inset 0 0 40px rgba(255, 255, 255, 0.02);
+      opacity: 0;
+    }
+
+    .search-wrap.scanning img {
+      filter: brightness(1) saturate(1);
+    }
+
+    .search-wrap.scanning .search-line {
+      opacity: 1;
+      animation: scanX 2.8s linear infinite;
+    }
+
+    .search-wrap.scanning .spot {
+      opacity: 1;
+      animation: spotMove 3.2s linear infinite;
+    }
+
+
+
+
+    .search-wrap2 {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+      background: radial-gradient(600px 260px at 50% 20%, rgba(56, 189, 248, .04), transparent 55%), rgba(255, 255, 255, .01);
+    }
+
+    .search-wrap2 img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      transition: filter .35s ease, transform .35s ease;
+      filter: brightness(.55) saturate(.9);
+      user-select: none;
+      -webkit-user-drag: none;
+      object-fit: contain;
+    }
+
+    .search-wrap2 .search-line {
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 36%;
+      height: 100%;
+      transform: skewX(-14deg);
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .search-wrap2 .spot {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 120px 34px rgba(56, 189, 248, 0.10), inset 0 0 40px rgba(255, 255, 255, 0.02);
+      opacity: 0;
+    }
+
+    .search-wrap2.scanning img {
+      filter: brightness(1) saturate(1);
+    }
+
+    .search-wrap2.scanning .search-line {
+      opacity: 1;
+      animation: scanX 2.8s linear infinite;
+    }
+
+    .search-wrap2.scanning .spot {
+      opacity: 1;
+      animation: spotMove 3.2s linear infinite;
+    }
+
+    @keyframes scanX {
+      0% {
+        left: -40%;
+      }
+
+      100% {
+        left: 120%;
+      }
+    }
+
+    @keyframes spotMove {
+      0% {
+        left: -10%;
+        top: 22%;
+      }
+
+      25% {
+        left: 26%;
+        top: 34%;
+      }
+
+      50% {
+        left: 58%;
+        top: 48%;
+      }
+
+      75% {
+        left: 84%;
+        top: 32%;
+      }
+
+      100% {
+        left: 120%;
+        top: 22%;
+      }
+    }
+
+    .chartTip .v {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+  </style>
+  <script src="https://unpkg.com/lottie-web@latest/build/player/lottie.min.js"></script>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="assets/ecojob_logo_cromatico_dark.svg" alt="Ecojob" />
+      </div>
+
+      <div class="controls">
+        <button class="btn" id="prevBtn" title="Anterior (←)">← <span style="font-weight:900">Anterior</span></button>
+        <div class="pill" id="slidePill">Slide 1/15</div>
+        <button class="btn" id="nextBtn" title="Próximo (→)"><span style="font-weight:900">Próximo</span> →</button>
+
+        <button class="btn" id="playBtn" title="Play">▶ Play</button>
+
+        <div class="toggle" title="Troca de slides automática">
+          Autoplay
+          <div class="switch" id="autoSwitch">
+            <div class="knob"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="deck">
+    <div class="stage" id="stage">
+
+      <!-- SLIDE 1 (Intro Logo Ecojob) -->
+      <section class="slide" data-title="Intro Logo Ecojob">
+        <div class="content">
+          <div class="card"
+            style="height:100%; min-height:420px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:16px;">
+            <div id="introLogoEcojobChartCol"
+              style="width:100%; max-width:960px; height:320px; border:none; border-radius:14px; background:transparent;">
+            </div>
+            <img id="introLogoEcojobImg" src="" alt="Ecojob Logo"
+              style="max-width:520px; max-height:160px; width:100%; height:auto; max-width:480px; opacity:0; transform:translateY(8px); transition:opacity .45s ease, transform .45s ease;" />
+            <div id="introLogoEcojobCaption"
+              style="opacity:0; transition:opacity .45s ease; color:var(--muted); text-align:center; max-width:820px; font-size:20px; line-height:1.2; margin-top:8px; font-weight:600;">
+            </div>
+          </div>
+          <div class="footer">
+            <div class="progress">
+              <span>Introdução</span>
+              <span class="bar" id="bar"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2 (Introdução) -->
+      <section class="slide" data-title="Introdução">
+        <div class="content">
+          <div class="grid-2">
+            <div id="introTextCol" class="card"
+              style="min-height:360px; display:flex; flex-direction:column; gap:12px; padding:18px;">
+              <div>
+                <h2 style="margin-top:4px;">Parceria Eco JOB</h2>
+                <h3 style="margin-top:8px; font-size:18px; color:var(--muted);">Monitoramento contínuo de PVs</h3>
+              </div>
+              <div style="flex:1 1 auto;">
+                <p style="margin-top:12px; max-width:72ch;">
+                  • A Eco JOB Junto com a equipe de engenharia especializada em desenvolvimento de projetos de
+                  equipamentos eletrônicos, desenvolveu um modem para integrar os sistemas legado de radar (VEGA) com o
+                  novo sistema de conectividade IoT NBS300<br />
+                  <br>
+                  • Foram desenvolvidos e entregues centenas de pontos de coleta de dados para aplicação de
+                  monitoramento de PV's.<br />
+                  <br>
+                  • Em 2025 iniciou-se o desenvolvimento da família de radares IoT ECHO-R, combinando as mais modernas
+                  tecnologias de sensores e sistemas de conectividade. A evolução<br />
+                  <br>
+                  • Sensores Radar importados apresentam barreira de integração, tropicalização e custo no cenário
+                  nacional.<br />
+                  <br>
+                  • A demanda de um sistema modular, integrado, levou o desenvolvimento do ECHO-R1.<br />
+                  <br>
+                  • Para demandas mais exigentes, a Eco JOB está desenvolvendo junto à empresa parceira a nova geração
+                  ECHO-R2<br />
+                </p>
+              </div>
+            </div>
+
+            <div class="card"
+              style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:12px;">
+              <div id="introChartCol" style="width:100%;"></div>
+              <img id="introLogoImg" src="" alt="Ecojob Logo"
+                style="max-width:320px; max-height:120px; opacity:0; transform:translateY(6px); transition:opacity .5s ease, transform .5s ease;" />
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="progress">
+              <span>Introdução</span>
+              <span class="bar" id="bar2"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3 (Infraestrutura) -->
+      <section class="slide" data-title="Infraestrutura">
+        <div class="content grid-2">
+          <div class="card" style="display:flex; flex-direction:column; gap:12px;">
+            <div>
+              <h2 style="margin-top:4px;">Infraestrutura & Capacidades</h2>
+              <h3 style="margin-top:8px; font-size:18px; color:var(--muted);">Monitoramento contínuo de PVs</h3>
+              <p style="margin-top:5px; max-width:72ch;">
+                • Infraestrutura avançada para P&D<br />
+                • Fabricação própria em linha SMT<br />
+                • Certificações in-house
+              </p>
+              <h3 style="margin-top:8px; font-size:18px;">Calibração</h3>
+              <p style="margin-top:5px; max-width:72ch;">
+                Calibração detalhada para garantir que seu produto funcione conforme esperado em todas as condições.
+              </p>
+              <h3 style="margin-top:8px; font-size:18px;">Firmware</h3>
+              <p style="margin-top:5px; max-width:72ch;">
+                Firmware sob medida, crucial para a funcionalidade e a interface do usuário, garantindo que seu hardware
+                seja fácil de atualizar e manter.
+              </p>
+              <h3 style="margin-top:8px; font-size:18px;">
+                Box-Build</h3>
+              <p style="margin-top:5px; max-width:72ch;">
+                Integração completa de sistemas, subconjuntos e componentes, entregando um produto final que está pronto
+                para o mercado.
+              </p>
+            </div>
+
+            <div
+              style="display:flex; gap:12px; justify-content:space-between; align-items:flex-end; margin-top:8px; flex-wrap:wrap;">
+              <div
+                style="flex:1 1 32%; min-width:160px; text-align:center; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-weight:800;">• Fábrica PCBA</div>
+                <div
+                  style="height:140px; border-radius:12px; background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                  <img src="assets/infra1.png" alt="Fábrica PCBA"
+                    style="height:100%; width:100%; object-fit:cover; display:block;" />
+                </div>
+              </div>
+
+              <div
+                style="flex:1 1 32%; min-width:160px; text-align:center; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-weight:800;">• Equipe engenharia (120+ HC)</div>
+                <div
+                  style="height:140px; border-radius:12px; background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                  <img src="assets/infra2.png" alt="Equipe engenharia"
+                    style="height:100%; width:100%; object-fit:cover; display:block;" />
+                </div>
+              </div>
+
+              <div
+                style="flex:1 1 32%; min-width:160px; text-align:center; display:flex; flex-direction:column; gap:8px;">
+                <div style="font-weight:800;">• Câmaras climáticas</div>
+                <div
+                  style="height:140px; border-radius:12px; background:rgba(255,255,255,.03); border:1px dashed rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; overflow:hidden;">
+                  <img src="assets/infra3.png" alt="Câmaras climáticas"
+                    style="height:100%; width:100%; object-fit:cover; display:block;" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card"
+            style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:12px;">
+            <div id="slide2ChartCol" style="width:100%;"></div>
+            <img id="slide2LogoImg" src="" alt="Ecojob Logo"
+              style="max-width:320px; max-height:72px; opacity:0; transform:translateY(6px); transition:opacity .5s ease, transform .5s ease;" />
+          </div>
+
+          <div class="footer">
+            <div class="progress">
+              <span>Infraestrutura</span>
+              <span class="bar" id="bar3"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4 (Soluções de Sensores IoT) — apenas imagem -->
+      <section class="slide" data-title="Soluções de Sensores IoT">
+        <div class="content" style="width:100%; height:100%; align-items:center; justify-content:center;">
+          <div style="width:100%; height:100%; display:flex; align-items:stretch; justify-content:center;">
+            <div class="card"
+              style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:0; border-radius:var(--radius);">
+              <div id="sensorScanCol"
+                style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+                <div class="search-wrap" id="searchWrap" style="width:100%; height:100%;">
+                  <img id="sensorImg" src="assets/soluction_sensor_iot.png" alt="Sensor IoT" />
+                  <div class="search-line"></div>
+                  <div class="spot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="progress">
+              <span>Soluções de Sensores IoT</span>
+              <span class="bar" id="bar4"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5 (ECHO-R1) -->
+      <section class="slide" data-title="ECHO-R1">
+        <div class="content hero">
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> ECHO-R1</div>
+            <div>
+              <h3 style="margin-top:4px;">Conectividade nata</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Tecnologia NbIoT para conectividade robusta<br />
+                • 100% autônomo com bateria interna<br />
+              </p>
+              <h3 style="margin-top:4px;">Robustes e integração</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Proteção IP68<br />
+                • Componentes integrados em único case<br />
+              </p>
+              <h3 style="margin-top:4px;">Tecnologia Radar</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Radar 61GHz FMCW<br />
+                • Resistência à interferência<br />
+                • Precisão milimétrica, alcance de 20 metros<br />
+              </p>
+              <h3 style="margin-top:4px;">Eficiência Energética & Autonomia</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Consumo ultra-baixo em modo standby<br />
+                • Monitoramento remoto de tensão da bateria<br />
+              </p>
+              <h3 style="margin-top:4px;">Engenharia & Instalação</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Instalação simplificada (fixação superior)<br />
+                • Sem necessidade de calibração frequente<br />
+                • Configuração remota de parâmetros (LRV / URV)<br />
+              </p>
+            </div>
+            <!--
+            <div class="badges">
+              <div class="badge"><span class="ico green"></span> <b>Alcance mínimo:</b> 0,05m</div>
+              <div class="badge"><span class="ico"></span> <b>Alcance máximo:</b> 20m</div>
+              <div class="badge"><span class="ico amber"></span> <b>Campo de visão:</b> 8x8 graus</div>
+              <div class="badge"><span class="ico green"></span> <b>Resolução:</b> 1mm</div>
+              <div class="badge"><span class="ico"></span> <b>Frequência:</b> 61GHz</div>
+              <div class="badge"><span class="ico amber"></span> <b>Acurácia:</b> 5mm</div>
+              <div class="badge"><span class="ico green"></span> <b>Bateria:</b> 14 Ah</div>
+              <div class="badge"><span class="ico"></span> <b>Duração bateria:</b> +/- 2 anos</div>
+            </div>-->
+            <!--Botoes-->
+            <!--<div class="cta">
+              <button class="btn" onclick="go(2)">Ver aplicações</button>
+              <button class="btn secondary" onclick="go(4)">Ver especificações</button>
+            </div> -->
+          </div>
+
+          <div class="hero-visual">
+            <div class="product">
+
+              <img src="assets/echo_r1_interno.png" alt="Echo-R1" />
+            </div>
+
+            <div class="card">
+              <h3 style="font-size:16px; letter-spacing:.2px;">Nota</h3>
+              <p style="margin-top:8px;">
+                Reduza visitas em campo, aumente previsibilidade operacional e tenha leituras confiáveis para
+                prevenção de alagamentos, gestão hídrica e controle de infraestrutura.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span id="slideTitle1">Visão Geral ECHO-R1</span>
+            <span class="bar"><i id="bar5"></i></span>
+          </div>
+          <div class="hint">Teclas: <b>←</b> <b>→</b> • <b>Espaço</b> próximo</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6 (Especificações Técnicas Echo-R1) -->
+      <section class="slide" data-title="Especificações Técnicas Echo-R1">
+        <div class="content grid-2">
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> ESPECIFICAÇÕES</div>
+            <h2 style="margin-top:12px;">Ficha técnica (Echo-R1)</h2>
+            <div class="specs" id="specList">
+              <div class="spec">
+                <div class="k">Alcance mínimo</div>
+                <div class="v">0,05 m</div>
+              </div>
+              <div class="spec">
+                <div class="k">Alcance máximo</div>
+                <div class="v">20 m</div>
+              </div>
+              <div class="spec">
+                <div class="k">Campo de visão</div>
+                <div class="v">8×8°</div>
+              </div>
+              <div class="spec">
+                <div class="k">Resolução</div>
+                <div class="v">1 mm</div>
+              </div>
+              <div class="spec">
+                <div class="k">Frequência</div>
+                <div class="v">61 GHz</div>
+              </div>
+              <div class="spec">
+                <div class="k">Acurácia</div>
+                <div class="v">±5 mm</div>
+              </div>
+              <div class="spec">
+                <div class="k">Bateria</div>
+                <div class="v">&gt;14 Ah</div>
+              </div>
+              <div class="spec">
+                <div class="k">Duração bateria</div>
+                <div class="v">&gt;2 anos</div>
+              </div>
+            </div>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico green"></span> Envio de dados criptografado (TLS / HTTPS)</div>
+              <div class="badge"><span class="ico"></span> Payload otimizado para baixo consumo de rede</div>
+              <div class="badge"><span class="ico amber"></span> Compatível com plataformas IoT e APIs REST</div>
+              <div class="badge"><span class="ico green"></span>Vida útil estimada da bateria: até 2 anos (dependendo do
+                intervalo)</div>
+              <div class="badge"><span class="ico"></span> Adequado para ambientes externos</div>
+              <div class="badge"><span class="ico amber"></span> Adequado para ambientes internos</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:18px; letter-spacing:.2px;">Como isso vira valor</h3>
+            <p style="margin-top:10px;">
+              Especificação boa não é só “número”: é <b>menos visita em campo</b>, <b>menos falha de leitura</b> e
+              <b>decisão baseada em dados</b>.
+            </p>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico green"></span> Alerta precoce para eventos</div>
+              <div class="badge"><span class="ico"></span> Histórico para relatórios</div>
+              <div class="badge"><span class="ico amber"></span> Padronização</div>
+              <div class="badge"><span class="ico green"></span> Operação autônoma</div>
+            </div>
+
+            <div class="product" style="margin-top:14px; min-height: 320px;">
+              <img src="assets/echo_r1_externo.png" alt="Echo-R1" />
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span>Especificações Técnicas ECHO-R1</span>
+            <span class="bar"><i id="bar6"></i></span>
+          </div>
+          <div class="hint">Navegue: <b>←</b> <b>→</b> • Autoplay opcional</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7 (Soluções de Sensores IoT Echo R2) — apenas imagem -->
+      <section class="slide" data-title="Soluções de Sensores IoT Echo R2">
+        <div class="content" style="width:100%; height:100%; align-items:center; justify-content:center;">
+          <div style="width:100%; height:100%; display:flex; align-items:stretch; justify-content:center;">
+            <div class="card"
+              style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:0; border-radius:var(--radius);">
+              <div id="sensorScanCol2"
+                style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">
+                <div class="search-wrap" id="searchWrap2" style="width:100%; height:100%;">
+                  <img id="sensorImg2" src="assets/soluction_sensor_iot2.png" alt="Sensor IoT2" />
+                  <div class="search-line"></div>
+                  <div class="spot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="progress">
+              <span>Soluções de Sensores IoT</span>
+              <span class="bar"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8 (Echo-R2) -->
+      <section class="slide" data-title="Echo-R2">
+        <div class="content hero">
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> ECHO-R2</div>
+            <div>
+              <h3 style="margin-top:4px;">= Echo-R1 + Evolução RADAR</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Echo-R2: Para aplicações contínuas em temperaturas elevadas (até 70°C)<br />
+                • Tamanho reduzido (diâmetro 95mm) para geometria da tampa do PV<br />
+              </p>
+              <h3 style="margin-top:4px;">Robustes e integração</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Proteção IP68, estrutura em alumínio e PTFE<br />
+                • Componentes integrados em único case.<br />
+                • Tecnologia NbIoT para conectividade robusta<br />
+                • 100% autônomo com bateria interna<br />
+              </p>
+              <h3 style="margin-top:4px;">Tecnologia radar</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Radar 61GHz FMCW<br />
+                • Resistência à interferência<br />
+              </p>
+              <h3 style="margin-top:4px;">Eficiência Energética & Autonomia</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Consumo ultra-baixo em modo standby<br />
+                • Ciclo de transmissão configurável (1–60 min ou sob evento)<br />
+              </p>
+              <h3 style="margin-top:4px;">Confiabilidade Operacional</h3>
+              <p style="margin-top:12px; max-width:72ch;">
+                • Operação em temperatura estendida<br />
+                • Alta imunidade eletromagnética<br />
+                • Operação 24/7 contínua<br />
+                • Projeto robusto para ambiente externo severo<br />
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="product">
+              <img src="assets/echo_r2_interno.png" alt="Echo-R2" />
+            </div>
+
+            <div class="card">
+              <h3 style="font-size:16px; letter-spacing:.2px;">Nota</h3>
+              <p style="margin-top:8px;">
+                Reduza visitas em campo, aumente previsibilidade operacional e tenha leituras confiáveis para
+                prevenção de alagamentos, gestão hídrica e controle de infraestrutura.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span id="slideTitle1">Visão Geral ECHO-R2</span>
+            <span class="bar"><i id="bar1"></i></span>
+          </div>
+          <div class="hint">Teclas: <b>←</b> <b>→</b> • <b>Espaço</b> próximo</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9 (Especificações Técnicas Echo-R2) -->
+      <section class="slide" data-title="Especificações Técnicas Echo-R2">
+        <div class="content grid-2">
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> ESPECIFICAÇÕES</div>
+            <h2 style="margin-top:12px;">Ficha técnica (Echo-R2)</h2>
+            <p style="margin-top:8px;">Destaque automático por item para apresentação comercial e técnica.</p>
+
+            <div class="specs" id="specList">
+              <div class="spec">
+                <div class="k">Alcance mínimo</div>
+                <div class="v">0,05 m</div>
+              </div>
+              <div class="spec">
+                <div class="k">Alcance máximo</div>
+                <div class="v">50 m</div>
+              </div>
+              <div class="spec">
+                <div class="k">Campo de visão</div>
+                <div class="v">8×8°</div>
+              </div>
+              <div class="spec">
+                <div class="k">Resolução</div>
+                <div class="v">1 mm</div>
+              </div>
+              <div class="spec">
+                <div class="k">Frequência</div>
+                <div class="v">61 GHz</div>
+              </div>
+              <div class="spec">
+                <div class="k">Acurácia</div>
+                <div class="v">±5 mm</div>
+              </div>
+              <div class="spec">
+                <div class="k">Bateria</div>
+                <div class="v">&gt;14 Ah</div>
+              </div>
+              <div class="spec">
+                <div class="k">Duração bateria</div>
+                <div class="v">&gt;2 anos</div>
+              </div>
+            </div>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico"></span> Adequado para ambientes externos/internos</div>
+              <div class="badge"><span class="ico green"></span> Monitoramento de rios, córregos e canais</div>
+              <div class="badge"><span class="ico"></span> Controle de nível em reservatórios e barragens</div>
+              <div class="badge"><span class="ico green"></span>sem desgaste mecânico</div>
+              <div class="badge"><span class="ico"></span> Compensação automática de ruído e eco falso</div>
+              <div class="badge"><span class="ico"></span>Estabilidade térmica em variações ambientais</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:18px; letter-spacing:.2px;">Como isso vira valor</h3>
+            <p style="margin-top:10px;">
+              Especificação boa não é só “número”: é <b>menos visita em campo</b>, <b>menos falha de leitura</b> e
+              <b>decisão baseada em dados</b>.
+            </p>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico green"></span> Alerta precoce para eventos</div>
+              <div class="badge"><span class="ico"></span> Histórico para relatórios</div>
+              <div class="badge"><span class="ico amber"></span> Padronização em contratos</div>
+              <div class="badge"><span class="ico green"></span> Operação autônoma</div>
+              <div class="badge"><span class="ico green"></span> Suporte a múltiplos pontos simultâneos em dashboard CCO
+              </div>
+              <div class="badge"><span class="ico green"></span> Alarmes inteligentes (nível alto, baixo, comunicação,
+                bateria)</div>
+            </div>
+
+            <div class="product" style="margin-top:14px; min-height: 320px;">
+              <img src="assets/echo_r2_externo.png" alt="Echo-R2" />
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span>Especificações Técnicas ECHO-R2</span>
+            <span class="bar"><i id="bar4"></i></span>
+          </div>
+          <div class="hint">Navegue: <b>←</b> <b>→</b> • Autoplay opcional</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10 (Soluções de Sensores IoT Echo-R1-Echo-R2)-->
+      <section class="slide" data-title="Echo-R1-Echo-R2">
+        <div class="content hero">
+          <div class="hero-visual">
+            <div class="product" style="position:relative;">
+              <canvas id="echoR2ChartCanvas" class="chartCanvas"
+                style="position:absolute; inset:0; z-index:0; opacity:0.18;"></canvas>
+              <img id="echoR2Img" style="width: 70%; position:relative; z-index:1; pointer-events:none;"
+                src="assets/echo_r2_externo.png" alt="Echo-R2" />
+              <div class="thermometer" id="echoR2Therm" aria-hidden="true">
+                <div class="tube">
+                  <div class="fill" id="echoR2Fill"></div>
+                  <div class="bulb"></div>
+                </div>
+                <div class="label">-20°C → 70°C</div>
+                <div class="tempVal" id="echoR2Temp">-- °C</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 style="font-size:16px; letter-spacing:.2px;">Nota</h3>
+              <p style="margin-top:8px;">
+                -20 a 70°C - 50m de alcance - IP68, estrutura em alumínio e PTFE<br />
+                Para aplicações contínuas em temperaturas elevadas (até 70°C)<br />
+                Tecnologia NbIoT para conectividade robusta
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="product">
+              <div style="position:relative;">
+                <canvas id="echoR1ChartCanvas" class="chartCanvas"
+                  style="position:absolute; inset:0; z-index:0; opacity:0.14;"></canvas>
+                <img id="echoR1Img" style="width: 100%; position:relative; z-index:1; pointer-events:none;"
+                  src="assets/echo_r1_externo.png" alt="Echo-R1" />
+                <div class="thermometer" id="echoR1Therm" aria-hidden="true">
+                  <div class="tube">
+                    <div class="fill" id="echoR1Fill"></div>
+                    <div class="bulb"></div>
+                  </div>
+                  <div class="label">-20°C → 50°C</div>
+                  <div class="tempVal" id="echoR1Temp">-- °C</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3 style="font-size:16px; letter-spacing:.2px;">Nota</h3>
+              <p style="margin-top:8px;">
+                20 a 50°C - 20m de alcance - IP68<br />
+                Para aplicações contínuas em temperaturas elevadas (até 50°C)<br />
+                Tecnologia NbIoT para conectividade robusta
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span id="slideTitle1">Limites dos dispositivos</span>
+            <span class="bar"><i id="bar1"></i></span>
+          </div>
+          <div class="hint">Teclas: <b>←</b> <b>→</b> • <b>Espaço</b> próximo</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11 (DORES DO MERCADO)-->
+      <section class="slide" data-title="DORES DO MERCADO">
+        <div class="content">
+          <div class="grid-2">
+            <div id="doresTextCol" class="card"
+              style="min-height:360px; display:flex; flex-direction:column; gap:12px; padding:18px;">
+              <div class="kicker"><span class="pulse"></span> DORES DO MERCADO</div>
+              <h2 style="margin-top:12px;">O que normalmente dá errado</h2>
+              <ul>
+                <li>Leituras instáveis por sujeira, espuma ou turbulência.</li>
+                <li>Escala difícil de padronizar entre locais (rios, barragens e PV).</li>
+                <li>Manutenção e visitas frequentes por falha de sensor.</li>
+                <li>Baixa granularidade de leitura, dificultando ações preventivas.</li>
+              </ul>
+              <p style="margin-top:14px;">
+                Em operações críticas, o custo não é só o equipamento — é a falta de previsibilidade.
+              </p>
+              <div class="kicker"><span class="pulse"></span> PROPOSTA DE VALOR</div>
+              <h2 style="margin-top:12px;">O que o Echo-R1/R2 entrega</h2>
+              <ul>
+                <li>Radar com <b>alta precisão</b> e <b>resolução de 1 mm</b>.</li>
+                <li>Amplo alcance: <b>0,05 a 50 m</b> (mesmo produto, múltiplos cenários).</li>
+                <li>Operação autônoma com <b>bateria >2 anos</b>.</li>
+                <li>Dados consistentes para dashboards, alertas e relatórios.</li>
+                <li>Oferece uma Manutenção (acertiva) Diferenciada dos Pontos PV's e BL</li>
+              </ul>
+              <div class="badges" style="margin-top:12px;">
+                <div class="badge"><span class="ico"></span><b>+ Robustes - Manutenção</b></div>
+                <div class="badge"><span class="ico green"></span><b>Tecnologia NbIoT: + Conectividade</b> </div>
+              </div>
+            </div>
+
+            <div
+              style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:6px;">
+              <div id="doresCandleCol" style="width:100%;"></div>
+              <img id="doresLogoImg" src="" alt="Ecojob Logo"
+                style="max-width:320px; max-height:120px; opacity:0; transform:translateY(6px); transition:opacity .5s ease, transform .5s ease;" />
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="progress">
+              <span>Dores do mercado</span>
+              <span class="bar"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+      <!-- SLIDE 12 MULTI-CENÁRIOS -->
+      <section class="slide" data-title="MULTI-CENÁRIOS">
+        <div class="content app-grid">
+          <div class="scene" id="sceneBox">
+            <div class="tag" id="sceneTag"><span class="pulse"></span> RIO</div>
+
+            <img class="sensor" src="assets/echo_r2_interno.png" alt="Echo-R2" />
+
+            <div class="radarSignal" aria-hidden="true">
+              <span class="ring r1"></span>
+              <span class="ring r2"></span>
+              <span class="ring r3"></span>
+            </div>
+
+            <div class="hills" id="hills"></div>
+            <div class="dam" id="dam"></div>
+            <div class="pv" id="pv"></div>
+
+            <div class="water" id="water">
+              <div class="waves"></div>
+            </div>
+
+            <div class="readout">
+              <div class="meter">
+                <div class="t">LEITURA ATUAL (SIMULADA)</div>
+                <div class="v"><b id="lvl">2.34</b> m <span id="lvlPct"
+                    style="color:var(--muted); font-weight:900; font-size:12px;">(—%)</span></div>
+                <div class="mini"><i></i></div>
+              </div>
+              <div class="meter">
+                <div class="t">STATUS</div>
+                <div class="v"><span class="ok">Medição OK</span></div>
+                <div class="t" style="margin-top:8px;">Aplicação</div>
+                <div class="v" style="font-size:14px; font-weight:900;" id="useCase">Monitoramento de nível</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> MULTI-CENÁRIOS</div>
+            <h2 style="margin-top:12px;">Um sensor para diferentes ambientes</h2>
+            <p style="margin-top:10px;">
+              A mesma solução atende cenários abertos e fechados, simplificando padronização e operação.
+            </p>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico green"></span>PV's, BL's, Rios, córregos, Barragens e reservatórios</div>
+              <div class="badge"><span class="ico green"></span> Alta confiabilidade de leitura</div>
+            </div>
+
+            <div class="card" style="margin-top:14px;">
+              <h3 style="font-size:16px;">Observação comercial</h3>
+              <p style="margin-top:8px;">
+                • Reduz deslocamentos técnicos para campo, diminuindo custo com equipe e combustível.<br />
+                • Permite tomada de decisão baseada em dados em tempo real, aumentando previsibilidade operacional.<br />
+                • Minimiza riscos de alagamentos e multas ambientais por resposta tardia.<br />
+                • Integra facilmente com sistemas existentes (SCADA, ERPs, plataformas municipais).<br />
+                • Reduz custo de manutenção comparado a sensores submersíveis.<br />
+                • Instalação rápida, reduzindo tempo de implantação do projeto.<br />
+                • Gera histórico confiável para planejamento preventivo.<br />
+                • Aumenta a confiabilidade do serviço prestado ao cliente final.<br />
+                • Pode ser utilizado como ferramenta estratégica para cidades inteligentes (Smart Cities).<br />
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span>Aplicações</span>
+            <span class="bar"><i id="bar3"></i></span>
+          </div>
+          <div class="hint">A cena troca automaticamente: Rio → Córrego → Barragem → PV</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13 Pontos Existentes -->
+      <section class="slide" data-title="Pontos Existentes">
+        <div class="content grid-2">
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> PRÓXIMOS PASSOS</div>
+            <h2 style="margin-top:12px;">Vamos validar no seu cenário</h2>
+            <p style="margin-top:10px;">
+              Utilizando os pontos existentes ou um sensor piloto, podemos validar a solução no seu ambiente específico.
+            </p>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P001 - R. Gen. João Carlos Lobo Botelho x R. Benedita Dornelas</b> ID: <b class="id">0860228050382601</b> LRV: <b class="lrv">2980</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P002 - EEE Tenente Rocha - R. Tenente Rocha x Rua Heliodora</b> ID: <b class="id">0860228050383195</b> LRV: <b class="lrv">3450</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P035 - R. Dr. César, 818</b> ID: <b class="id">0860228050378658</b> LRV: <b class="lrv">2100</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P052 - Sargento-Mor Ramalho, 34</b> ID: <b class="id">0860228050383476</b> LRV: <b class="lrv">4100</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P087 - R. Rita José da Silva, 309 (EEE P3)</b> ID: <b class="id">0860228050382064</b> LRV: <b class="lrv">960</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P179 - R. Narita, 195</b> ID: <b class="id">0860228050411269</b> LRV: <b class="lrv">1550</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P049 - Av. Gen. Ataliba Leonel, 3598</b> ID: <b class="id">0860228050378393</b> LRV: <b class="lrv">2800</b> </div>
+              <div class="badge"><span class="ico green"></span>Ponto: <b class="name">P040 - R. Piatá, 1</b> ID: <b class="id">0860228050382536</b> LRV: <b class="lrv">2300</b> </div>
+              <div class="badge"><span class="ico blue"></span>Ponto: <b class="name">P000 - Sensor Echo-R1, 1</b> ID: <b class="id">0860228050426788</b> LRV: <b class="lrv">5068</b> </div>
+            </div>
+            <!--
+            <div class="cta">
+              <button class="btn" onclick="go(1)">Voltar ao início</button>
+              <button class="btn secondary" onclick="go(3)">Ver animação</button>
+            </div>
+            -->
+          </div>
+
+          <div class="card">
+            <h3 style="font-size:18px;">Resumo</h3>
+            <p style="margin-top:10px;">
+              Echo-R2/R1 é uma solução de medição de nível por radar para ambientes diversos (rios, córregos, barragens e
+              PV),
+              com <b>resolução de 1 mm</b>, <b>acurácia ±5 mm</b> e <b>autonomia >2 anos</b>.
+            </p>
+
+            <div class="card" style="margin-top:14px;">
+              <h3 style="font-size:16px;">Equipamento Utilizado atualmente</h3>
+              <p style="margin-top:8px;">
+               O VEGAPULS C 11 é o equipamento atual para a medição de nível. É adequado para uso em tratamento de água, bacias de transbordo de chuva e monitoramento de nível.
+              </p>
+            </div>
+
+            <div class="product" style="margin-top:14px; min-height: 320px;">
+              <img src="assets/ponto_existente.jpg" alt="Echo-R2" />
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span>Pontos Existentes</span>
+            <span class="bar"><i id="bar5"></i></span>
+          </div>
+          <div class="hint">Feito para apresentação comercial • 1 arquivo HTML</div>
+        </div>
+
+      </section>
+
+      <!-- SLIDE 14 DORES DO MERCADO -->
+      <section class="slide" data-title="Medições ao vivo (NBS)">
+        <div class="content charts-wrap">
+          <div class="card">
+            <div class="kicker"><span class="pulse"></span> DADOS AO VIVO</div>
+            <h2 style="margin-top:12px;">Gráficos direto do servidor NBS</h2>
+            <p style="margin-top:10px;">
+              Digite o <b>ID do dispositivo</b> e visualize as últimas medições sem salvar nada em banco.
+            </p>
+
+            <div class="field" style="margin-top:8px;">
+              <div class="label">Ponto selecionado</div>
+              <div id="nbsPointName" class="input" style="display:flex; align-items:center; min-height:42px; color:var(--muted);">—</div>
+            </div>
+
+            <div class="field">
+              <div class="label">Device ID</div>
+              <input class="input" id="nbsDeviceId" placeholder="Ex.: 0860228050123456" autocomplete="off" />
+            </div>
+
+
+            <div class="row" style="margin-top:10px;">
+              <div class="field" style="flex:1 1 160px; margin-top:0;">
+                <div class="label">Total / Altura (mm)</div>
+                <input class="input" id="nbsTotalMaxMm" type="number" inputmode="numeric" placeholder="Ex.: 2500" />
+              </div>
+              <div class="field" style="flex:1 1 160px; margin-top:0;">
+                <div class="label">LRV (4mA) (mm)</div>
+                <input class="input" id="nbsRadarLrvMm" type="number" inputmode="numeric" placeholder="0 = usa Total" />
+              </div>
+              <div class="field" style="flex:1 1 160px; margin-top:0;">
+                <div class="label">URV (20mA) (mm)</div>
+                <input class="input" id="nbsRadarUrvMm" type="number" inputmode="numeric" placeholder="Ex.: 0" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="field" style="flex:1 1 220px; margin-top:0;">
+                <div class="label">Janela</div>
+                <select class="select" id="nbsWindow">
+                  <option value="120">Últimos 120 pontos</option>
+                  <option value="300">Últimos 300 pontos</option>
+                  <option value="800">Últimos 800 pontos</option>
+                </select>
+              </div>
+
+              <button class="btn secondary" id="nbsLoadBtn" title="Buscar no NBS">⟳ Buscar</button>
+              <div class="chip" id="nbsAutoChip" title="Atualiza automaticamente a cada 30s">
+                Auto
+                <span class="switch" id="nbsAuto" style="transform:scale(.85); margin-left:4px;">
+                  <div class="knob"></div>
+                </span>
+              </div>
+            </div>
+
+            <div class="statusline" id="nbsStatus">
+              <b>Status:</b> informe um Device ID e clique em <b>Buscar</b>.
+            </div>
+
+            <div class="badges" style="margin-top:14px;">
+              <div class="badge"><span class="ico green"></span> <b>Pontos plotados:</b> <span id="nbsCount">—</span>
+              </div>
+              <div class="badge"><span class="ico"></span> <b>Última atualização:</b> <span id="nbsLast">—</span></div>
+              <div class="badge"><span class="ico amber"></span> <b>Nível atual:</b> <span id="nbsNow">—</span></div>
+              <div class="badge"><span class="ico green"></span> <b>Bateria:</b> <span id="nbsBat">—</span></div>
+            </div>
+
+            <!--<div class="hintbox">
+              <b>Nota:</b> esta tela depende de CORS liberado pela API do NBS para abrir direto no navegador.
+              Se o navegador bloquear, você precisará abrir via um domínio/servidor que tenha permissão (proxy) —
+              mas o gráfico e o parser aqui já ficam prontos.
+            </div>-->
+          </div>
+
+          <div class="charts">
+            <div class="chart">
+              <h3>Nível (m) — série temporal</h3>
+              <canvas class="chartCanvas" id="levelChart"></canvas>
+            </div>
+            <div class="chart">
+              <h3>Bateria (V) — série temporal</h3>
+              <canvas class="chartCanvas" id="batteryChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <div class="progress">
+            <span>Gráficos ao vivo (NBS)</span>
+            <span class="bar"><i id="bar6"></i></span>
+          </div>
+          <div class="hint">Dica: cole o Device ID e visualize as últimas medições</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 15 GALERIA -->
+      <section class="slide" data-title="Galeria de Fotos">
+        <div class="content">
+          <div class="card" style="height:100%; min-height:420px; display:flex; flex-direction:column; gap:14px; padding:16px;">
+            <div class="kicker"><span class="pulse"></span> GALERIA</div>
+            <h2 style="margin-top:4px;">Registro visual do Novo Supervisório</h2>
+            <div id="galleryGrid15" style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:10px; flex:1 1 auto;">
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122521.png" alt="Foto 1" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122554.png" alt="Foto 2" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122828.png" alt="Foto 3" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122849.png" alt="Foto 4" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122901.png" alt="Foto 5" style="height:100%;" /></div>
+
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122910.png" alt="Foto 6" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122922.png" alt="Foto 7" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20122949.png" alt="Foto 8" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20124519.png" alt="Foto 9" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20123114.png" alt="Foto 10" style="height:100%;" /></div>
+
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20123249.png" alt="Foto 11" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20123649.png" alt="Foto 12" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20123810.png" alt="Foto 13" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20124024.png" alt="Foto 14" style="height:100%;" /></div>
+              <div class="product" style="min-height:0; height:100%;"><img class="gallery-photo" src="assets/supervisorio/Captura%20de%20tela%202026-02-12%20124711.png" alt="Foto 15" style="height:100%;" /></div>
+            </div>
+          </div>
+
+          <div class="footer">
+            <div class="progress">
+              <span>Galeria de Fotos</span>
+              <span class="bar"><i></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="galleryModal" class="gallery-modal" aria-hidden="true">
+    <div class="gallery-modal-box">
+      <button id="galleryModalClose" class="gallery-modal-btn gallery-modal-close" type="button" aria-label="Fechar">×</button>
+      <button id="galleryModalPrev" class="gallery-modal-btn gallery-modal-prev" type="button" aria-label="Foto anterior">←</button>
+      <img id="galleryModalImage" class="gallery-modal-image" src="" alt="Foto ampliada" />
+      <button id="galleryModalNext" class="gallery-modal-btn gallery-modal-next" type="button" aria-label="Próxima foto">→</button>
+      <div id="galleryModalCount" class="gallery-modal-count">1 / 15</div>
+    </div>
+  </div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const pill = document.getElementById('slidePill');
+    const autoSwitch = document.getElementById('autoSwitch');
+    const playBtn = document.getElementById('playBtn');
+
+    const progressBars = Array.from(document.querySelectorAll('.footer .progress .bar > i'));
+    const galleryGrid15 = document.getElementById('galleryGrid15');
+    const galleryPhotos = galleryGrid15 ? Array.from(galleryGrid15.querySelectorAll('img.gallery-photo')) : [];
+    const galleryModal = document.getElementById('galleryModal');
+    const galleryModalImage = document.getElementById('galleryModalImage');
+    const galleryModalCount = document.getElementById('galleryModalCount');
+    const galleryModalPrev = document.getElementById('galleryModalPrev');
+    const galleryModalNext = document.getElementById('galleryModalNext');
+    const galleryModalClose = document.getElementById('galleryModalClose');
+
+    let idx = 0; // 0-based
+    let autoplay = false;
+    let timer = null;
+    let galleryIndex = 0;
+
+    function isGalleryOpen() {
+      return !!galleryModal && galleryModal.classList.contains('open');
+    }
+
+    function renderGalleryModal() {
+      if (!galleryModalImage || !galleryModalCount || !galleryPhotos.length) return;
+      const photo = galleryPhotos[galleryIndex];
+      galleryModalImage.src = photo.getAttribute('src') || '';
+      galleryModalImage.alt = photo.getAttribute('alt') || `Foto ${galleryIndex + 1}`;
+      galleryModalCount.textContent = `${galleryIndex + 1} / ${galleryPhotos.length}`;
+    }
+
+    function openGalleryModal(startIndex) {
+      if (!galleryModal || !galleryPhotos.length) return;
+      galleryIndex = Math.max(0, Math.min(galleryPhotos.length - 1, Number(startIndex) || 0));
+      renderGalleryModal();
+      galleryModal.classList.add('open');
+      galleryModal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeGalleryModal() {
+      if (!galleryModal) return;
+      galleryModal.classList.remove('open');
+      galleryModal.setAttribute('aria-hidden', 'true');
+    }
+
+    function nextGalleryPhoto() {
+      if (!galleryPhotos.length) return;
+      galleryIndex = (galleryIndex + 1) % galleryPhotos.length;
+      renderGalleryModal();
+    }
+
+    function prevGalleryPhoto() {
+      if (!galleryPhotos.length) return;
+      galleryIndex = (galleryIndex - 1 + galleryPhotos.length) % galleryPhotos.length;
+      renderGalleryModal();
+    }
+
+    function render() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+      pill.textContent = `Slide ${idx + 1}/${slides.length}`;
+      const pct = ((idx + 1) / slides.length) * 100;
+      progressBars.forEach(b => { b.style.width = pct + '%'; });
+
+      // handle intro slide animation restart when visible
+      try {
+        const introIndex = slides.findIndex(s => String(s.dataset.title || '').toLowerCase() === 'introdução' || String(s.dataset.title || '').toLowerCase() === 'introducao');
+        if (typeof introIndex === 'number' && introIndex >= 0) {
+          if (idx === introIndex) startIntroAnimation(); else stopIntroAnimation();
+        }
+      } catch (_) { }
+
+      // Intro Logo Ecojob: do NOT auto-start; only ensure it is stopped when slide isn't active
+      try {
+        const introLogoIndex = slides.findIndex(s => String(s.dataset.title || '').toLowerCase() === 'intro logo ecojob');
+        if (typeof introLogoIndex === 'number' && introLogoIndex >= 0) {
+          if (idx !== introLogoIndex) stopIntroLogoEcojobAnimation();
+        }
+      } catch (_) { }
+
+      // handle slide 2 bar animation when its container is active
+      try {
+        const slide2Col = document.getElementById('slide2ChartCol');
+        if (slide2Col) { const parent = slide2Col.closest('.slide'); if (parent && parent.classList.contains('active')) startSlide2Animation(); else stopSlide2Animation(); }
+      } catch (_) { }
+
+      // handle sensor scan slide animation
+      try {
+        const sensorCol = document.getElementById('sensorScanCol');
+        if (sensorCol) { const parent = sensorCol.closest('.slide'); if (parent && parent.classList.contains('active')) startSensorScan(); else stopSensorScan(); }
+      } catch (_) { }
+
+      try {
+        const sensorCol = document.getElementById('sensorScanCol2');
+        if (sensorCol) { const parent = sensorCol.closest('.slide'); if (parent && parent.classList.contains('active')) startSensorScan2(); else stopSensorScan2(); }
+      } catch (_) { }
+
+      // handle Echo-R2 chart animation + thermometer
+      try {
+        const c = document.getElementById('echoR2ChartCanvas');
+        if (c) { const parent = c.closest('.slide'); if (parent && parent.classList.contains('active')) { startEchoR2Chart(); startEchoR2Thermometer(); } else { stopEchoR2Chart(); stopEchoR2Thermometer(); } }
+      } catch (_) { }
+
+      // handle Echo-R1 chart animation + thermometer
+      try {
+        const c1 = document.getElementById('echoR1ChartCanvas');
+        if (c1) { const parent1 = c1.closest('.slide'); if (parent1 && parent1.classList.contains('active')) { startEchoR1Chart(); startEchoR1Thermometer(); } else { stopEchoR1Chart(); stopEchoR1Thermometer(); } }
+      } catch (_) { }
+
+      // handle DORES DO MERCADO candlestick
+      try {
+        const col = document.getElementById('doresCandleCol');
+        if (col) {
+          const parent = col.closest('.slide');
+          if (parent && parent.classList.contains('active')) startDoresCandles();
+          else stopDoresCandles();
+        }
+      } catch (_) { }
+    }
+
+    function next() { idx = (idx + 1) % slides.length; render(); }
+    function prev() { idx = (idx - 1 + slides.length) % slides.length; render(); }
+
+    function go(n) { // 1..N
+      idx = Math.max(0, Math.min(slides.length - 1, n - 1));
+      render();
+    }
+    window.go = go;
+
+    document.getElementById('nextBtn').addEventListener('click', next);
+    document.getElementById('prevBtn').addEventListener('click', prev);
+
+    // keyboard
+    window.addEventListener('keydown', (e) => {
+      if (isGalleryOpen()) {
+        if (e.key === 'Escape') { e.preventDefault(); closeGalleryModal(); return; }
+        if (e.key === 'ArrowRight') { e.preventDefault(); nextGalleryPhoto(); return; }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prevGalleryPhoto(); return; }
+        return;
+      }
+      if (e.key === 'ArrowRight' || e.key === ' ') next();
+      if (e.key === 'ArrowLeft') prev();
+    });
+
+    if (galleryPhotos.length) {
+      galleryPhotos.forEach((photo, photoIndex) => {
+        photo.addEventListener('click', () => openGalleryModal(photoIndex));
+      });
+    }
+
+    galleryModalPrev?.addEventListener('click', prevGalleryPhoto);
+    galleryModalNext?.addEventListener('click', nextGalleryPhoto);
+    galleryModalClose?.addEventListener('click', closeGalleryModal);
+    galleryModal?.addEventListener('click', (ev) => {
+      if (ev.target === galleryModal) closeGalleryModal();
+    });
+
+    // autoplay toggle
+    function setAutoplay(on) {
+      autoplay = on;
+      autoSwitch.classList.toggle('on', autoplay);
+      if (timer) clearInterval(timer);
+      if (autoplay) {
+        timer = setInterval(() => next(), 60000);
+      } else {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      // sync play button visual state
+      try { if (playBtn) playBtn.classList.toggle('playing', !!autoplay); } catch(_) {}
+    }
+    autoSwitch.addEventListener('click', () => setAutoplay(!autoplay));
+    playBtn?.addEventListener('click', () => {
+      try {
+        const introLogoIndex = slides.findIndex(s => String(s.dataset.title || '').toLowerCase() === 'intro logo ecojob');
+        if (typeof introLogoIndex === 'number' && introLogoIndex >= 0) {
+          if (idx !== introLogoIndex) { idx = introLogoIndex; render(); }
+          // start only the intro logo animation (do NOT toggle autoplay)
+          startIntroLogoEcojobAnimation();
+          if (playBtn) playBtn.classList.add('playing');
+        }
+      } catch (_) { }
+    });
+
+    // --- Slide 3: scene rotation + simulated level readout ---
+    const sceneTag = document.getElementById('sceneTag');
+    const useCase = document.getElementById('useCase');
+    const lvlEl = document.getElementById('lvl');
+    const dam = document.getElementById('dam');
+    const pv = document.getElementById('pv');
+    const hills = document.getElementById('hills');
+
+    const scenes = [
+      { name: 'RIO', use: 'Monitoramento de cheias e tendências', mode: 'river' },
+      { name: 'CÓRREGO', use: 'Risco de alagamento e resposta rápida', mode: 'river' },
+      { name: 'BARRAGEM', use: 'Gestão de reservatório e operação', mode: 'dam' },
+      { name: 'PV', use: 'Infraestrutura urbana e prevenção', mode: 'pv' },
+    ];
+    let s = 0;
+
+    function applyScene(sc) {
+      sceneTag.innerHTML = `<span class="pulse"></span> ${sc.name}`;
+      useCase.textContent = sc.use;
+
+      // Decorations
+      if (sc.mode === 'dam') {
+        dam.style.display = 'block';
+        pv.style.display = 'none';
+        hills.style.display = 'none';
+      } else if (sc.mode === 'pv') {
+        dam.style.display = 'none';
+        pv.style.display = 'block';
+        hills.style.display = 'none';
+      } else {
+        dam.style.display = 'none';
+        pv.style.display = 'none';
+        hills.style.display = 'block';
+      }
+    }
+    applyScene(scenes[s]);
+
+    setInterval(() => {
+      s = (s + 1) % scenes.length;
+      applyScene(scenes[s]);
+    }, 5200);
+
+    // --- Slide 1: Intro Logo Ecojob (linha -> barras -> candlestick -> logo) ---
+    const introLogoEcojobChartCol = document.getElementById('introLogoEcojobChartCol');
+    const introLogoEcojobImg = document.getElementById('introLogoEcojobImg');
+    let __introLogoEcojobRaf = null;
+    let __introLogoEcojobCanvas = null;
+    let __introLogoEcojobResize = null;
+    let __introLogoEcojobShown = false;
+    let __introLogoEcojobCaptionTimers = [];
+
+    function stopIntroLogoEcojobAnimation() {
+      if (__introLogoEcojobRaf) { cancelAnimationFrame(__introLogoEcojobRaf); __introLogoEcojobRaf = null; }
+      if (__introLogoEcojobResize) { window.removeEventListener('resize', __introLogoEcojobResize); __introLogoEcojobResize = null; }
+      if (introLogoEcojobChartCol) introLogoEcojobChartCol.innerHTML = '';
+      __introLogoEcojobCanvas = null;
+      __introLogoEcojobShown = false;
+      // ensure loop stops
+      try { __introLogoEcojobLoop = false; } catch (e) { }
+      // clear caption timers and hide caption
+      try {
+        __introLogoEcojobCaptionTimers.forEach(t => clearTimeout(t));
+      } catch (e) { }
+      __introLogoEcojobCaptionTimers = [];
+      const captionEl = document.getElementById('introLogoEcojobCaption');
+      if (captionEl) { captionEl.innerHTML = ''; captionEl.style.opacity = 0; }
+      if (introLogoEcojobImg) {
+        introLogoEcojobImg.style.opacity = 0;
+        introLogoEcojobImg.style.transform = 'translateY(8px)';
+      }
+      try { if (playBtn) playBtn.classList.remove('playing'); } catch(_) {}
+    }
+
+    function startIntroLogoEcojobAnimation() {
+      if (!introLogoEcojobChartCol) return;
+      stopIntroLogoEcojobAnimation();
+
+      const canvas = document.createElement('canvas');
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.display = 'block';
+      introLogoEcojobChartCol.appendChild(canvas);
+      __introLogoEcojobCanvas = canvas;
+
+      const dpr = window.devicePixelRatio || 1;
+      const barsCount = 12;
+      const barsValues = Array.from({ length: barsCount }, () => 25 + Math.random() * 70);
+      const lineValues = Array.from({ length: 14 }, (_, i) => 40 + Math.sin(i * 0.55) * 18 + (Math.random() - 0.5) * 10);
+      const candleData = Array.from({ length: 18 }, () => {
+        const o = 40 + Math.random() * 45;
+        const c = o + (Math.random() - 0.5) * 18;
+        const hi = Math.max(o, c) + Math.random() * 10;
+        const lo = Math.min(o, c) - Math.random() * 10;
+        return { o, c, hi, lo };
+      });
+
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(700, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(260, Math.floor(rect.height * dpr));
+      }
+
+      function drawBg(ctx, w, h, alpha) {
+        ctx.clearRect(0, 0, w, h);
+        ctx.strokeStyle = `rgba(255,255,255,${0.06 * alpha})`;
+        ctx.lineWidth = Math.max(1, Math.floor(dpr));
+        for (let i = 0; i < 6; i++) {
+          const y = (h * 0.14) + ((h * 0.72) / 5) * i;
+          ctx.beginPath();
+          ctx.moveTo(w * 0.06, y);
+          ctx.lineTo(w * 0.94, y);
+          ctx.stroke();
+        }
+      }
+
+      function drawLineChart(ctx, w, h, p) {
+        const left = w * 0.08, right = w * 0.92, top = h * 0.16, bottom = h * 0.86;
+        const min = Math.min(...lineValues), max = Math.max(...lineValues);
+        const xAt = i => left + (i / (lineValues.length - 1)) * (right - left);
+        const yAt = v => bottom - ((v - min) / (max - min || 1)) * (bottom - top);
+        const total = (lineValues.length - 1) * p;
+        const full = Math.floor(total);
+        const frac = total - full;
+
+        ctx.save();
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = Math.max(2, Math.floor(2 * dpr));
+        const g = ctx.createLinearGradient(left, 0, right, 0);
+        g.addColorStop(0, 'rgba(56,189,248,.98)');
+        g.addColorStop(1, 'rgba(34,197,94,.98)');
+        ctx.strokeStyle = g;
+        ctx.beginPath();
+        for (let i = 0; i <= full; i++) {
+          const x = xAt(i), y = yAt(lineValues[i]);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        if (full < lineValues.length - 1) {
+          const x0 = xAt(full), y0 = yAt(lineValues[full]);
+          const x1 = xAt(full + 1), y1 = yAt(lineValues[full + 1]);
+          ctx.lineTo(x0 + (x1 - x0) * frac, y0 + (y1 - y0) * frac);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function drawBarsChart(ctx, w, h, p) {
+        const left = w * 0.09, right = w * 0.91, top = h * 0.16, bottom = h * 0.86;
+        const maxVal = Math.max(...barsValues, 100);
+        const bw = (right - left) / barsCount * 0.62;
+        for (let i = 0; i < barsCount; i++) {
+          const x = left + (i + 0.5) * ((right - left) / barsCount) - bw / 2;
+          const target = ((barsValues[i] / maxVal) * (bottom - top));
+          const bh = target * p;
+          const y = bottom - bh;
+          ctx.fillStyle = i % 2 ? 'rgba(56,189,248,.88)' : 'rgba(34,197,94,.88)';
+          ctx.fillRect(x, y, bw, bh);
+        }
+      }
+
+      function drawCandlesChart(ctx, w, h, p) {
+        const left = w * 0.09, right = w * 0.91, top = h * 0.16, bottom = h * 0.86;
+        const all = candleData.flatMap(c => [c.o, c.c, c.hi, c.lo]);
+        const min = Math.min(...all), max = Math.max(...all);
+        const yOf = v => bottom - ((v - min) / (max - min || 1)) * (bottom - top);
+        const step = (right - left) / candleData.length;
+        const cw = step * 0.58;
+        const visible = Math.floor(candleData.length * p);
+        for (let i = 0; i < visible; i++) {
+          const c = candleData[i];
+          const x = left + i * step + (step - cw) / 2;
+          const yo = yOf(c.o), yc = yOf(c.c), yh = yOf(c.hi), yl = yOf(c.lo);
+          const up = c.c >= c.o;
+          ctx.strokeStyle = up ? 'rgba(34,197,94,.95)' : 'rgba(239,68,68,.95)';
+          ctx.fillStyle = up ? 'rgba(34,197,94,.80)' : 'rgba(239,68,68,.80)';
+          ctx.lineWidth = Math.max(1, Math.floor(1 * dpr));
+          const center = x + cw / 2;
+          ctx.beginPath();
+          ctx.moveTo(center, yh);
+          ctx.lineTo(center, yl);
+          ctx.stroke();
+          const by = Math.min(yo, yc);
+          const bh = Math.max(2 * dpr, Math.abs(yc - yo));
+          ctx.fillRect(x, by, cw, bh);
+        }
+      }
+
+      resize();
+      __introLogoEcojobResize = resize;
+      window.addEventListener('resize', __introLogoEcojobResize);
+
+      const phaseMs = 2500;
+      const transMs = 200;
+      const lineEnd = phaseMs;
+      const barsStart = lineEnd - transMs;
+      const barsEnd = barsStart + phaseMs;
+      const candleStart = barsEnd - transMs;
+      const candleEnd = candleStart + phaseMs;
+      const totalMs = candleEnd;
+      const start = performance.now();
+      // loop mode variables
+      let __introLogoEcojobLoop = false;
+      let __introLogoEcojobLoopProgress = 0;
+      let __introLogoEcojobLoopLast = 0;
+      const __introLogoEcojobLoopInterval = 5000; // ms per full reveal
+
+      function frame(now) {
+        const elapsed = now - start;
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width, h = canvas.height;
+
+        drawBg(ctx, w, h, 1);
+
+        if (elapsed < barsStart) {
+          drawLineChart(ctx, w, h, Math.min(1, elapsed / phaseMs));
+        } else if (elapsed >= barsStart && elapsed < lineEnd) {
+          const t = Math.min(1, (elapsed - barsStart) / transMs);
+
+          ctx.save();
+          const wipeXOut = Math.floor(w * t);
+          ctx.beginPath();
+          ctx.rect(wipeXOut, 0, w - wipeXOut, h);
+          ctx.clip();
+          drawLineChart(ctx, w, h, 1);
+          ctx.restore();
+
+          ctx.save();
+          const wipeXIn = Math.floor(w * t);
+          ctx.beginPath();
+          ctx.rect(0, 0, wipeXIn, h);
+          ctx.clip();
+          drawBarsChart(ctx, w, h, Math.min(1, (elapsed - barsStart) / phaseMs));
+          ctx.restore();
+        } else if (elapsed >= lineEnd && elapsed < candleStart) {
+          drawBarsChart(ctx, w, h, Math.min(1, (elapsed - barsStart) / phaseMs));
+        } else if (elapsed >= candleStart && elapsed < barsEnd) {
+          const t = Math.min(1, (elapsed - candleStart) / transMs);
+
+          ctx.save();
+          const wipeXOut = Math.floor(w * t);
+          ctx.beginPath();
+          ctx.rect(wipeXOut, 0, w - wipeXOut, h);
+          ctx.clip();
+          drawBarsChart(ctx, w, h, 1);
+          ctx.restore();
+
+          // show logo together with the start of the candle phase
+          if (!__introLogoEcojobShown) {
+            const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="64" viewBox="0 0 520 64"><text x="0" y="44" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="40" fill="#FFFFFF" font-weight="700">ECOJOB</text></svg>';
+            const svgData = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+            if (introLogoEcojobImg) {
+              introLogoEcojobImg.src = 'assets/ecojob_logo_cromatico_dark.svg';
+              introLogoEcojobImg.onerror = () => { introLogoEcojobImg.src = svgData; };
+              introLogoEcojobImg.style.opacity = 1;
+              introLogoEcojobImg.style.transform = 'translateY(0)';
+            }
+            __introLogoEcojobShown = true;
+
+            // start caption typing
+            const captionEl = document.getElementById('introLogoEcojobCaption');
+            if (captionEl) {
+              captionEl.innerHTML = '';
+              captionEl.style.opacity = 1;
+              const line1 = 'Inteligência em monitoramento ambiental';
+              const line2 = 'Solução integrada para poços de visita e hidrologia';
+              let tacc = 220; const perChar = 28; const pauseBetween = 360;
+              // first line
+              for (let i = 1; i <= line1.length; i++) {
+                __introLogoEcojobCaptionTimers.push(setTimeout(((txt) => () => { captionEl.innerHTML = txt; })(line1.slice(0, i)), tacc));
+                tacc += perChar;
+              }
+              tacc += pauseBetween;
+              // second line
+              for (let j = 1; j <= line2.length; j++) {
+                __introLogoEcojobCaptionTimers.push(setTimeout(((l1, l2part) => () => { captionEl.innerHTML = l1 + '<br/>' + l2part; })(line1, line2.slice(0, j)), tacc));
+                tacc += perChar;
+              }
+            }
+          }
+
+          ctx.save();
+          const wipeXIn = Math.floor(w * t);
+          ctx.beginPath();
+          ctx.rect(0, 0, wipeXIn, h);
+          ctx.clip();
+          drawCandlesChart(ctx, w, h, Math.min(1, (elapsed - candleStart) / phaseMs));
+          ctx.restore();
+        } else if (elapsed >= barsEnd && elapsed < candleEnd) {
+          drawCandlesChart(ctx, w, h, Math.min(1, (elapsed - candleStart) / phaseMs));
+        }
+
+        if (elapsed < totalMs) {
+          __introLogoEcojobRaf = requestAnimationFrame(frame);
+          return;
+        }
+
+        // enter continuous loop: reveal candles left->right repeatedly and inject random candles
+        __introLogoEcojobLoop = true;
+        __introLogoEcojobLoopProgress = 0;
+        __introLogoEcojobLoopLast = performance.now();
+
+        function loopRAF(now2) {
+          if (!__introLogoEcojobLoop) { __introLogoEcojobRaf = null; return; }
+          const dt = Math.max(0, now2 - __introLogoEcojobLoopLast);
+          __introLogoEcojobLoopLast = now2;
+          __introLogoEcojobLoopProgress += dt / __introLogoEcojobLoopInterval;
+          // when reach 1, shift left and append new random candle, keep leftover progress
+          if (__introLogoEcojobLoopProgress >= 1) {
+            __introLogoEcojobLoopProgress -= 1;
+            // shift and push
+            try {
+              if (Array.isArray(candleData)) {
+                candleData.shift();
+                const o = 40 + Math.random() * 45;
+                const c = o + (Math.random() - 0.5) * 18;
+                const hi = Math.max(o, c) + Math.random() * 10;
+                const lo = Math.min(o, c) - Math.random() * 10;
+                candleData.push({ o, c, hi, lo });
+              }
+            } catch (e) { }
+          }
+
+          const ctx2 = canvas.getContext('2d');
+          const w2 = canvas.width, h2 = canvas.height;
+          drawBg(ctx2, w2, h2, 1);
+          drawCandlesChart(ctx2, w2, h2, Math.min(1, Math.max(0, __introLogoEcojobLoopProgress)));
+          __introLogoEcojobRaf = requestAnimationFrame(loopRAF);
+        }
+
+        __introLogoEcojobRaf = requestAnimationFrame(loopRAF);
+
+        if (!__introLogoEcojobShown) {
+          const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="64" viewBox="0 0 520 64"><text x="0" y="44" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="40" fill="#FFFFFF" font-weight="700">ECOJOB</text></svg>';
+          const svgData = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+          if (introLogoEcojobImg) {
+            introLogoEcojobImg.src = 'assets/ecojob_logo_cromatico_dark.svg';
+            introLogoEcojobImg.onerror = () => { introLogoEcojobImg.src = svgData; };
+            introLogoEcojobImg.style.opacity = 1;
+            introLogoEcojobImg.style.transform = 'translateY(0)';
+          }
+          __introLogoEcojobShown = true;
+        }
+      }
+
+      __introLogoEcojobRaf = requestAnimationFrame(frame);
+    }
+
+    // --- Intro slide text animation (left text card + right logo) ---
+    const introTextCol = document.getElementById('introTextCol');
+    const introChartCol = document.getElementById('introChartCol');
+    const introLogoImg = document.getElementById('introLogoImg');
+    const lottieEl = document.getElementById('lottieEcojobIntro');
+    let __introTimers = [];
+    let __introRaf = null;
+    function clearIntroTimers() {
+      __introTimers.forEach(t => clearTimeout(t));
+      __introTimers = [];
+      if (introChartCol) introChartCol.innerHTML = '';
+      if (typeof __introRaf === 'number' && __introRaf) { cancelAnimationFrame(__introRaf); __introRaf = null; }
+      if (introLogoImg) { introLogoImg.style.opacity = 0; introLogoImg.style.transform = 'translateY(6px)'; }
+      if (lottieEl) lottieEl.style.display = 'none';
+    }
+
+    function stopIntroAnimation() {
+      clearIntroTimers();
+    }
+
+    function startIntroAnimation() {
+      if (!introChartCol) return;
+      clearIntroTimers();
+
+      // create canvas for animated line chart
+      const canvasWrap = document.createElement('div');
+      canvasWrap.style.width = '100%';
+      canvasWrap.style.padding = '6px 8px';
+      canvasWrap.style.boxSizing = 'border-box';
+      const canvas = document.createElement('canvas');
+      canvas.style.width = '100%';
+      canvas.style.height = '160px';
+      canvasWrap.appendChild(canvas);
+      introChartCol.appendChild(canvasWrap);
+
+      __introRaf = null;
+      function resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(300, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(120, Math.floor(rect.height * dpr));
+      }
+
+      function animateChart(points, duration, cb) {
+        resizeCanvas();
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width, h = canvas.height;
+        const padL = Math.floor(w * 0.06), padR = Math.floor(w * 0.02), padT = Math.floor(h * 0.12), padB = Math.floor(h * 0.18);
+        const plotW = w - padL - padR, plotH = h - padT - padB;
+        const xs = points.map((_, i) => padL + (i / (points.length - 1)) * plotW);
+        const minY = Math.min(...points), maxY = Math.max(...points);
+        const yToPx = v => padT + (1 - (v - minY) / (maxY - minY || 1)) * plotH;
+
+        const start = performance.now();
+        function frame(now) {
+          const t = Math.min(1, (now - start) / duration);
+          // clear
+          ctx.clearRect(0, 0, w, h);
+          // grid
+          ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.lineWidth = Math.max(1, Math.floor(1 * (window.devicePixelRatio || 1)));
+          for (let i = 0; i < 4; i++) { const gy = padT + (plotH / 3) * i; ctx.beginPath(); ctx.moveTo(padL, gy); ctx.lineTo(padL + plotW, gy); ctx.stroke(); }
+
+          // line path up to progress
+          ctx.lineWidth = Math.max(2, Math.floor(2 * (window.devicePixelRatio || 1)));
+          const grad = ctx.createLinearGradient(0, 0, w, 0); grad.addColorStop(0, 'rgba(56,189,248,0.95)'); grad.addColorStop(1, 'rgba(34,197,94,0.95)');
+          ctx.strokeStyle = grad; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+          ctx.beginPath();
+          const total = (points.length - 1) * t;
+          const fullIdx = Math.floor(total);
+          const frac = total - fullIdx;
+          for (let i = 0; i <= fullIdx; i++) {
+            const x = xs[i]; const y = yToPx(points[i]);
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+          }
+          if (fullIdx < points.length - 1) {
+            const nx = xs[fullIdx + 1]; const ny = yToPx(points[fullIdx + 1]);
+            const cx = xs[fullIdx] + (nx - xs[fullIdx]) * frac;
+            const cy = yToPx(points[fullIdx]) + (ny - yToPx(points[fullIdx])) * frac;
+            ctx.lineTo(cx, cy);
+          }
+          ctx.stroke();
+
+          // draw current marker
+          if (t > 0) {
+            const idx = Math.min(points.length - 1, Math.round(total));
+            const mx = xs[idx]; const my = yToPx(points[idx]);
+            ctx.fillStyle = 'rgba(34,197,94,0.98)'; ctx.beginPath(); ctx.arc(mx, my, Math.max(3, Math.floor(3 * (window.devicePixelRatio || 1))), 0, Math.PI * 2); ctx.fill();
+          }
+
+          if (t < 1) { __introRaf = requestAnimationFrame(frame); }
+          else { __introRaf = null; if (typeof cb === 'function') cb(); }
+        }
+        __introRaf = requestAnimationFrame(frame);
+      }
+
+      // generate sample data (várias medidas)
+      const pts = [];
+      const N = 12;
+      let base = 2.5;
+      for (let i = 0; i < N; i++) { base += (Math.random() - 0.45) * 1.2; pts.push(Math.max(0.2, +(base + Math.random() * 0.6).toFixed(2))); }
+
+      // start animation (~3s)
+      animateChart(pts, 3200, () => {
+        // reveal logo when chart finishes
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="64" viewBox="0 0 520 64"><text x="0" y="44" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="40" fill="#FFFFFF" font-weight="700">ECOJOB</text></svg>';
+        const svgData = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        if (introLogoImg) { introLogoImg.src = 'assets/ecojob_logo_cromatico_dark.svg'; introLogoImg.onerror = () => { introLogoImg.src = svgData; }; introLogoImg.style.opacity = 1; introLogoImg.style.transform = 'translateY(0)'; }
+      });
+    }
+
+    // --- Slide 2: barras animadas ---
+    let __slide2Timers = [];
+    let __slide2Raf = null;
+    function clearSlide2Timers() {
+      __slide2Timers.forEach(t => clearTimeout(t));
+      __slide2Timers = [];
+      if (__slide2Raf) { cancelAnimationFrame(__slide2Raf); __slide2Raf = null; }
+      const col = document.getElementById('slide2ChartCol'); if (col) col.innerHTML = '';
+      const lg = document.getElementById('slide2LogoImg'); if (lg) { lg.style.opacity = 0; lg.style.transform = 'translateY(6px)'; }
+    }
+
+    function stopSlide2Animation() { clearSlide2Timers(); }
+
+    function startSlide2Animation() {
+      console.log('[intro] startSlide2Animation called');
+      const col = document.getElementById('slide2ChartCol');
+      const lg = document.getElementById('slide2LogoImg');
+      if (!col) { console.warn('[intro] slide2ChartCol not found'); return; }
+      clearSlide2Timers();
+
+      const canvasWrap = document.createElement('div');
+      canvasWrap.style.width = '100%';
+      canvasWrap.style.padding = '6px 8px';
+      canvasWrap.style.boxSizing = 'border-box';
+      const canvas = document.createElement('canvas');
+      canvas.style.width = '100%';
+      canvas.style.height = '160px';
+      canvasWrap.appendChild(canvas);
+      col.appendChild(canvasWrap);
+
+      const dpr = window.devicePixelRatio || 1;
+      function resize() { const rect = canvas.getBoundingClientRect(); canvas.width = Math.max(300, Math.floor(rect.width * dpr)); canvas.height = Math.max(120, Math.floor(rect.height * dpr)); }
+
+      function animateBars(values, duration, cb) {
+        console.log('[intro] animateBars start values=', values);
+        resize();
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width, h = canvas.height;
+        const pad = Math.floor(w * 0.06);
+        const plotW = w - pad * 2, plotH = h - pad * 2;
+        const barSlot = plotW / values.length;
+        const barW = Math.max(8, Math.floor(barSlot * 0.6));
+        const minv = Math.min(...values), maxv = Math.max(...values);
+        const start = performance.now();
+
+        function frame(now) {
+          const t = Math.min(1, (now - start) / duration);
+          ctx.clearRect(0, 0, w, h);
+          // grid
+          ctx.strokeStyle = 'rgba(255,255,255,.05)'; ctx.lineWidth = Math.max(1, Math.floor(1 * (dpr)));
+          for (let i = 0; i < 4; i++) { const gy = pad + (plotH / 3) * i; ctx.beginPath(); ctx.moveTo(pad, gy); ctx.lineTo(pad + plotW, gy); ctx.stroke(); }
+
+          // bars
+          for (let i = 0; i < values.length; i++) {
+            const v = values[i];
+            const norm = (v - minv) / (maxv - minv || 1);
+            const tgtH = norm * plotH;
+            const curH = tgtH * t;
+            const cx = pad + i * barSlot + (barSlot / 2);
+            const bx = cx - barW / 2;
+            const by = pad + plotH - curH;
+            const grad = ctx.createLinearGradient(bx, by, bx + barW, by);
+            grad.addColorStop(0, 'rgba(56,189,248,0.98)'); grad.addColorStop(1, 'rgba(34,197,94,0.95)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(bx, by, barW, curH);
+          }
+
+          if (t < 1) { __slide2Raf = requestAnimationFrame(frame); }
+          else { __slide2Raf = null; console.log('[intro] animateBars done'); if (typeof cb === 'function') cb(); }
+        }
+        __slide2Raf = requestAnimationFrame(frame);
+      }
+
+      // sample bars
+      const vals = [];
+      const M = 8;
+      let base = 60;
+      for (let i = 0; i < M; i++) { base += (Math.random() - 0.45) * 18; vals.push(Math.max(8, Math.round(base + Math.random() * 12))); }
+
+      animateBars(vals, 3000, () => {
+        const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="64" viewBox="0 0 520 64"><text x="0" y="44" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="40" fill="#FFFFFF" font-weight="700">ECOJOB</text></svg>';
+        const svgData = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+        if (lg) { lg.src = 'assets/ecojob_logo_cromatico_dark.svg'; lg.onerror = () => { lg.src = svgData; }; lg.style.opacity = 1; lg.style.transform = 'translateY(0)'; }
+      });
+    }
+
+    // --- Sensor slide: start/stop scanning effect ---
+    function startSensorScan() {
+      try {
+        const wrap = document.getElementById('searchWrap');
+        if (!wrap) return;
+        // ensure class applied
+        wrap.classList.add('scanning');
+        // preload image (in case)
+        const img = document.getElementById('sensorImg');
+        if (img && img.dataset.preloaded !== '1') { img.dataset.preloaded = '1'; const s = img.src; const i = new Image(); i.src = s; }
+      } catch (e) { console.warn('[intro] startSensorScan err', e); }
+    }
+
+    function startSensorScan2() {
+      try {
+        const wrap = document.getElementById('searchWrap2');
+        if (!wrap) return;
+        // ensure class applied
+        wrap.classList.add('scanning');
+        // preload image (in case)
+        const img = document.getElementById('sensorImg2');
+        if (img && img.dataset.preloaded !== '1') { img.dataset.preloaded = '1'; const s = img.src; const i = new Image(); i.src = s; }
+      } catch (e) { console.warn('[intro] startSensorScan2 err', e); }
+    }
+
+    function stopSensorScan() {
+      try {
+        const wrap = document.getElementById('searchWrap');
+        if (!wrap) return;
+        wrap.classList.remove('scanning');
+      } catch (e) { }
+    }
+
+    function stopSensorScan2() {
+      try {
+        const wrap = document.getElementById('searchWrap2');
+        if (!wrap) return;
+        wrap.classList.remove('scanning');
+      } catch (e) { }
+    }
+
+    // --- DORES DO MERCADO: candlestick animation + hover tooltip ---
+    let __doresCandleRaf = null;
+    let __doresCandles = [];
+    let __doresVisible = 0;
+
+    function clearDoresCandles() {
+      try {
+        if (typeof __doresCandleRaf === 'number' && __doresCandleRaf) { cancelAnimationFrame(__doresCandleRaf); __doresCandleRaf = null; }
+      } catch (e) { }
+      __doresCandles = [];
+      __doresVisible = 0;
+      const col = document.getElementById('doresCandleCol');
+      if (col) col.innerHTML = '';
+      const lg = document.getElementById('doresLogoImg');
+      if (lg) { lg.style.opacity = 0; lg.style.transform = 'translateY(6px)'; }
+      try { hideTip(); } catch (e) { }
+    }
+
+    function stopDoresCandles() { clearDoresCandles(); }
+
+    function startDoresCandles() {
+      const col = document.getElementById('doresCandleCol');
+      const lg = document.getElementById('doresLogoImg');
+      if (!col) return;
+      clearDoresCandles();
+
+      const canvasWrap = document.createElement('div');
+      canvasWrap.style.width = '100%';
+      canvasWrap.style.padding = '6px 8px';
+      canvasWrap.style.boxSizing = 'border-box';
+      const canvas = document.createElement('canvas');
+      // gráfico fora de card: sem fundo/borda padrão do .chartCanvas
+      canvas.style.width = '100%';
+      canvas.style.height = '220px';
+      canvas.style.display = 'block';
+      canvas.style.borderRadius = '12px';
+      canvas.style.background = 'transparent';
+      canvas.style.border = 'none';
+      canvas.style.cursor = 'default';
+      canvasWrap.appendChild(canvas);
+      col.appendChild(canvasWrap);
+
+      const dpr = window.devicePixelRatio || 1;
+      function resize() {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(320, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(160, Math.floor(rect.height * dpr));
+      }
+
+      // Generate OHLC series (interpreted as "nível" em metros), with max 50 at least once
+      const N = 26;
+      const now = Date.now();
+      const candles = [];
+      let lastClose = 18 + Math.random() * 8;
+      for (let i = 0; i < N; i++) {
+        const open = lastClose;
+        const drift = (Math.random() - 0.48) * 3.2;
+        let close = open + drift;
+        let high = Math.max(open, close) + Math.random() * 4.0;
+        let low = Math.min(open, close) - Math.random() * 3.5;
+        // clamp 0..50
+        close = Math.max(0, Math.min(50, close));
+        high = Math.max(0, Math.min(50, high));
+        low = Math.max(0, Math.min(50, low));
+        if (low > high) { const tmp = low; low = high; high = tmp; }
+        const x = new Date(now - (N - i) * 10 * 60 * 1000);
+        candles.push({ x, o: +open.toFixed(2), h: +high.toFixed(2), l: +low.toFixed(2), c: +close.toFixed(2) });
+        lastClose = close;
+      }
+      // medidas aleatórias: sem forçar picos
+
+      __doresCandles = candles;
+      __doresVisible = 0;
+
+      function getYRange(visCount) {
+        const slice = __doresCandles.slice(0, Math.max(1, visCount));
+        const lows = slice.map(d => d.l);
+        const highs = slice.map(d => d.h);
+        let minY = Math.min(...lows);
+        let maxY = Math.max(...highs);
+        if (!isFinite(minY) || !isFinite(maxY)) { minY = 0; maxY = 50; }
+        if (minY === maxY) { minY -= 1; maxY += 1; }
+        // small padding
+        const pad = (maxY - minY) * 0.08;
+        minY = Math.max(0, minY - pad);
+        maxY = Math.min(50, maxY + pad);
+        return { minY, maxY };
+      }
+
+      function drawCandles(visCount) {
+        resize();
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width, h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        const pad = Math.floor(18 * dpr);
+        const plotW = w - pad * 2;
+        const plotH = h - pad * 2;
+        const { minY, maxY } = getYRange(visCount);
+        const yToPx = (v) => pad + (1 - ((v - minY) / (maxY - minY))) * plotH;
+
+        // grid
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(255,255,255,.06)';
+        const gridN = 4;
+        for (let i = 0; i <= gridN; i++) {
+          const gy = pad + (plotH / gridN) * i;
+          ctx.beginPath(); ctx.moveTo(pad, gy); ctx.lineTo(pad + plotW, gy); ctx.stroke();
+        }
+
+        // sem legendas/labels
+
+        const data = __doresCandles.slice(0, Math.max(1, visCount));
+        const slot = plotW / data.length;
+        const bodyW = Math.max(6 * dpr, slot * 0.55);
+
+        // colors
+        const upCol = getComputedStyle(document.documentElement).getPropertyValue('--green').trim() || '#22c55e';
+        const downCol = getComputedStyle(document.documentElement).getPropertyValue('--red').trim() || '#fb7185';
+        const wickCol = 'rgba(255,255,255,.35)';
+
+        for (let i = 0; i < data.length; i++) {
+          const d = data[i];
+          const cx = pad + (i + 0.5) * slot;
+          const x0 = cx - bodyW / 2;
+          const yO = yToPx(d.o);
+          const yC = yToPx(d.c);
+          const yH = yToPx(d.h);
+          const yL = yToPx(d.l);
+
+          // wick
+          ctx.strokeStyle = wickCol;
+          ctx.lineWidth = Math.max(1, Math.floor(1 * dpr));
+          ctx.beginPath(); ctx.moveTo(cx, yH); ctx.lineTo(cx, yL); ctx.stroke();
+
+          // body
+          const isUp = d.c >= d.o;
+          ctx.fillStyle = isUp ? upCol : downCol;
+          const top = Math.min(yO, yC);
+          const bot = Math.max(yO, yC);
+          const bh = Math.max(1.5 * dpr, bot - top);
+          ctx.globalAlpha = 0.92;
+          ctx.fillRect(x0, top, bodyW, bh);
+          ctx.globalAlpha = 1;
+        }
+
+        // sem título
+      }
+
+      // sem tooltip no hover
+
+      // animate
+      const duration = 3200;
+      const start = performance.now();
+      function frame(nowTs) {
+        const t = Math.min(1, (nowTs - start) / duration);
+        const count = Math.max(2, Math.floor(t * __doresCandles.length));
+        __doresVisible = count;
+        drawCandles(count);
+        if (t < 1) __doresCandleRaf = requestAnimationFrame(frame);
+        else {
+          __doresCandleRaf = null;
+          // reveal logo after finish
+          const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="520" height="64" viewBox="0 0 520 64"><text x="0" y="44" font-family="Segoe UI, Roboto, Arial, sans-serif" font-size="40" fill="#FFFFFF" font-weight="700">ECOJOB</text></svg>';
+          const svgData = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+          if (lg) {
+            lg.src = 'assets/ecojob_logo_cromatico_dark.svg';
+            lg.onerror = () => { lg.src = svgData; };
+            lg.style.opacity = 1;
+            lg.style.transform = 'translateY(0)';
+          }
+        }
+      }
+      resize();
+      __doresCandleRaf = requestAnimationFrame(frame);
+    }
+
+    // --- Echo-R2: animated line chart behind image ---
+    let __echoR2Raf = null;
+    let __echoR2Series = [];
+    let __echoR2Visible = 0;
+    function clearEchoR2Chart() {
+      try {
+        if (typeof __echoR2Raf === 'number' && __echoR2Raf) { cancelAnimationFrame(__echoR2Raf); __echoR2Raf = null; }
+        const c = document.getElementById('echoR2ChartCanvas'); if (c) { const ctx = c.getContext('2d'); ctx.clearRect(0, 0, c.width || 1, c.height || 1); }
+        __echoR2Series = [];
+        __echoR2Visible = 0;
+      } catch (e) { }
+    }
+
+    function stopEchoR2Chart() { clearEchoR2Chart(); }
+
+    function startEchoR2Chart() {
+      try {
+        const canvas = document.getElementById('echoR2ChartCanvas');
+        if (!canvas) return;
+        clearEchoR2Chart();
+
+        const dpr = window.devicePixelRatio || 1;
+        function resize() { const rect = canvas.getBoundingClientRect(); canvas.width = Math.max(300, Math.floor(rect.width * dpr)); canvas.height = Math.max(160, Math.floor(rect.height * dpr)); }
+
+        // generate time-series with up to 50 meters
+        const N = 80;
+        const now = Date.now();
+        const series = [];
+        let base = 18 + Math.random() * 6; // starting base meters
+        for (let i = 0; i < N; i++) {
+          base += (Math.random() - 0.45) * 2.2;
+          const v = Math.max(0, Math.min(50, +(base + Math.random() * 4).toFixed(2)));
+          series.push({ x: new Date(now - (N - i) * 60 * 1000), y: v });
+        }
+        // ensure at least one point reaches the 50m peak (not at very edges)
+        try {
+          const peakIndex = Math.max(2, Math.min(N - 3, Math.floor(N * (0.25 + Math.random() * 0.5))));
+          series[peakIndex].y = 50;
+        } catch (e) { }
+        // medidas aleatórias: sem forçar picos
+        __echoR2Series = series;
+        __echoR2Visible = 0;
+
+        // attach tooltip (uses the visible slice)
+        if (!canvas.__echoTooltipAttached) {
+          attachCanvasTooltip(canvas, () => __echoR2Series.slice(0, __echoR2Visible), (p) => `<div class="v">Nível: ${Number(p.y).toFixed(2)} m</div>`);
+          canvas.__echoTooltipAttached = true;
+        }
+
+        const duration = 3600;
+        const start = performance.now();
+        function frame(nowTs) {
+          const t = Math.min(1, (nowTs - start) / duration);
+          const count = Math.max(1, Math.floor(t * (__echoR2Series.length)));
+          __echoR2Visible = count;
+          // draw
+          drawLineChart(canvas, __echoR2Series.slice(0, count), { formatY: (v) => `${v.toFixed(2)} m` });
+          if (t < 1) { __echoR2Raf = requestAnimationFrame(frame); }
+          else { __echoR2Raf = null; }
+        }
+        resize();
+        __echoR2Raf = requestAnimationFrame(frame);
+      } catch (e) { console.warn('[intro] startEchoR2Chart err', e); }
+    }
+
+    // --- Echo-R1: animated line chart (max 20 m) ---
+    let __echoR1Raf = null;
+    let __echoR1Series = [];
+    let __echoR1Visible = 0;
+    function clearEchoR1Chart() {
+      try {
+        if (typeof __echoR1Raf === 'number' && __echoR1Raf) { cancelAnimationFrame(__echoR1Raf); __echoR1Raf = null; }
+        const c = document.getElementById('echoR1ChartCanvas'); if (c) { const ctx = c.getContext('2d'); ctx.clearRect(0, 0, c.width || 1, c.height || 1); }
+        __echoR1Series = [];
+        __echoR1Visible = 0;
+      } catch (e) { }
+    }
+
+    function stopEchoR1Chart() { clearEchoR1Chart(); }
+
+    function startEchoR1Chart() {
+      try {
+        const canvas = document.getElementById('echoR1ChartCanvas');
+        if (!canvas) return;
+        clearEchoR1Chart();
+
+        const dpr = window.devicePixelRatio || 1;
+        function resize() { const rect = canvas.getBoundingClientRect(); canvas.width = Math.max(300, Math.floor(rect.width * dpr)); canvas.height = Math.max(160, Math.floor(rect.height * dpr)); }
+
+        const N = 72;
+        const now = Date.now();
+        const series = [];
+        let base = 6 + Math.random() * 4; // starting base meters
+        for (let i = 0; i < N; i++) {
+          base += (Math.random() - 0.45) * 1.2;
+          const v = Math.max(0, Math.min(20, +(base + Math.random() * 2).toFixed(2)));
+          series.push({ x: new Date(now - (N - i) * 60 * 1000), y: v });
+        }
+        // medidas aleatórias: sem forçar picos
+        // garantir pelo menos um pico a 20m em posição interna
+        try {
+          const peakIndex1 = Math.max(2, Math.min(N - 3, Math.floor(N * (0.25 + Math.random() * 0.5))));
+          series[peakIndex1].y = 20;
+        } catch (e) { }
+
+        __echoR1Series = series;
+        __echoR1Visible = 0;
+
+        if (!canvas.__echo1TooltipAttached) {
+          attachCanvasTooltip(canvas, () => __echoR1Series.slice(0, __echoR1Visible), (p) => `<div class="v">Nível: ${Number(p.y).toFixed(2)} m</div>`);
+          canvas.__echo1TooltipAttached = true;
+        }
+
+        const duration = 3600;
+        const start = performance.now();
+        function frame(nowTs) {
+          const t = Math.min(1, (nowTs - start) / duration);
+          const count = Math.max(1, Math.floor(t * (__echoR1Series.length)));
+          __echoR1Visible = count;
+          drawLineChart(canvas, __echoR1Series.slice(0, count), { formatY: (v) => `${v.toFixed(2)} m` });
+          if (t < 1) { __echoR1Raf = requestAnimationFrame(frame); }
+          else { __echoR1Raf = null; }
+        }
+        resize();
+        __echoR1Raf = requestAnimationFrame(frame);
+      } catch (e) { console.warn('[intro] startEchoR1Chart err', e); }
+    }
+
+    // --- Thermometer animations ---
+    let __thermPalette = null;
+    function parseCssColorToRgb(str) {
+      const s = String(str || '').trim();
+      if (!s) return null;
+      // hex #RRGGBB
+      const mHex = s.match(/^#([0-9a-f]{6})$/i);
+      if (mHex) {
+        const n = parseInt(mHex[1], 16);
+        return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+      }
+      // rgb/rgba
+      const mRgb = s.match(/^rgba?\(([^)]+)\)$/i);
+      if (mRgb) {
+        const parts = mRgb[1].split(',').map(x => Number(String(x).trim()));
+        if (parts.length >= 3 && parts.every((v, i) => i < 3 ? Number.isFinite(v) : true)) {
+          return { r: parts[0], g: parts[1], b: parts[2] };
+        }
+      }
+      return null;
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function lerpRgb(c1, c2, t) { return { r: lerp(c1.r, c2.r, t), g: lerp(c1.g, c2.g, t), b: lerp(c1.b, c2.b, t) }; }
+    function rgbToCss(c) { return `rgb(${Math.round(c.r)},${Math.round(c.g)},${Math.round(c.b)})`; }
+
+    function getThermPalette() {
+      if (__thermPalette) return __thermPalette;
+      const cs = getComputedStyle(document.documentElement);
+      const cyan = parseCssColorToRgb(cs.getPropertyValue('--cyan'));
+      const green = parseCssColorToRgb(cs.getPropertyValue('--green'));
+      const amber = parseCssColorToRgb(cs.getPropertyValue('--amber'));
+      const red = parseCssColorToRgb(cs.getPropertyValue('--red'));
+      // fallback (should not happen) — keep safe
+      __thermPalette = {
+        cyan: cyan || { r: 56, g: 189, b: 248 },
+        green: green || { r: 34, g: 197, b: 94 },
+        amber: amber || { r: 251, g: 191, b: 36 },
+        red: red || { r: 251, g: 113, b: 133 },
+      };
+      return __thermPalette;
+    }
+
+    function thermColorForNorm(norm01) {
+      const n = Math.max(0, Math.min(1, Number(norm01)));
+      const p = getThermPalette();
+      // Azul(min) -> Verde -> Amarelo(amber) -> (laranja no meio) -> Vermelho(max)
+      if (n <= 0.25) return rgbToCss(lerpRgb(p.cyan, p.green, n / 0.25));
+      if (n <= 0.55) return rgbToCss(lerpRgb(p.green, p.amber, (n - 0.25) / 0.30));
+      return rgbToCss(lerpRgb(p.amber, p.red, (n - 0.55) / 0.45));
+    }
+
+    let __echoR2ThermRaf = null;
+    function stopEchoR2Thermometer() {
+      try {
+        if (__echoR2ThermRaf) { cancelAnimationFrame(__echoR2ThermRaf); __echoR2ThermRaf = null; }
+        const therm = document.getElementById('echoR2Therm');
+        if (therm) therm.style.setProperty('--thermColor', 'var(--cyan)');
+        const f = document.getElementById('echoR2Fill');
+        if (f) f.style.height = '2%';
+        const t = document.getElementById('echoR2Temp');
+        if (t) t.textContent = '-- °C';
+      } catch (e) { }
+    }
+
+    function startEchoR2Thermometer() {
+      try {
+        const therm = document.getElementById('echoR2Therm');
+        const fill = document.getElementById('echoR2Fill');
+        const label = document.getElementById('echoR2Temp');
+        if (!fill || !label) return;
+        const min = -20, max = 70;
+        function frame(now) {
+          const t = (Math.sin(now / 2500) + 1) / 2; // 0..1 slow
+          const val = min + t * (max - min);
+          const pct = Math.max(0, Math.min(100, ((val - min) / (max - min)) * 100));
+          fill.style.height = pct + '%';
+          label.textContent = `${val.toFixed(1)} °C`;
+          if (therm) therm.style.setProperty('--thermColor', thermColorForNorm((val - min) / (max - min)));
+          __echoR2ThermRaf = requestAnimationFrame(frame);
+        }
+        stopEchoR2Thermometer();
+        __echoR2ThermRaf = requestAnimationFrame(frame);
+      } catch (e) { console.warn('[intro] startEchoR2Thermometer err', e); }
+    }
+
+    let __echoR1ThermRaf = null;
+    function stopEchoR1Thermometer() {
+      try {
+        if (__echoR1ThermRaf) { cancelAnimationFrame(__echoR1ThermRaf); __echoR1ThermRaf = null; }
+        const therm = document.getElementById('echoR1Therm');
+        if (therm) therm.style.setProperty('--thermColor', 'var(--cyan)');
+        const f = document.getElementById('echoR1Fill');
+        if (f) f.style.height = '2%';
+        const t = document.getElementById('echoR1Temp');
+        if (t) t.textContent = '-- °C';
+      } catch (e) { }
+    }
+
+    function startEchoR1Thermometer() {
+      try {
+        const therm = document.getElementById('echoR1Therm');
+        const fill = document.getElementById('echoR1Fill');
+        const label = document.getElementById('echoR1Temp');
+        if (!fill || !label) return;
+        const min = -20, max = 50;
+        function frame(now) {
+          const t = (Math.cos(now / 2100) + 1) / 2; // slightly different rhythm
+          const val = min + t * (max - min);
+          const pct = Math.max(0, Math.min(100, ((val - min) / (max - min)) * 100));
+          fill.style.height = pct + '%';
+          label.textContent = `${val.toFixed(1)} °C`;
+          if (therm) therm.style.setProperty('--thermColor', thermColorForNorm((val - min) / (max - min)));
+          __echoR1ThermRaf = requestAnimationFrame(frame);
+        }
+        stopEchoR1Thermometer();
+        __echoR1ThermRaf = requestAnimationFrame(frame);
+      } catch (e) { console.warn('[intro] startEchoR1Thermometer err', e); }
+    }
+
+    // level number sync with the CSS water animation duration (5.8s)
+    let t = 0;
+    let __lastLvl = null;
+    const lvlPctEl = document.getElementById('lvlPct');
+    const waterEl = document.getElementById('water');
+    setInterval(() => {
+      // sin wave 0..1
+      t += 0.12;
+      const wave = (Math.sin(t) + 1) / 2; // 0..1
+      // choose plausible range per scene
+      const baseRanges = {
+        river: [0.8, 3.6],
+        dam: [2.2, 8.5],
+        pv: [0.2, 2.0],
+      };
+      const mode = scenes[s].mode;
+      const r = baseRanges[mode] || baseRanges.river;
+      const span = (r[1] - r[0]) || 1;
+      const value = r[0] + span * wave;
+      const pct = Math.max(0, Math.min(100, ((value - r[0]) / span) * 100));
+
+      if (lvlEl) lvlEl.textContent = value.toFixed(2);
+      if (lvlPctEl) lvlPctEl.textContent = `(${Math.round(pct)}%)`;
+
+      // cor fixa: sempre azul
+      try {
+        const p = getThermPalette();
+        const cyan = p.cyan;
+        const deepBlue = { r: Math.max(0, cyan.r - 28), g: Math.max(0, cyan.g - 78), b: Math.min(255, cyan.b + 28) };
+        __lastLvl = value;
+        if (waterEl) {
+          const top = `rgba(${Math.round(deepBlue.r)},${Math.round(deepBlue.g)},${Math.round(deepBlue.b)},0.92)`;
+          const bot = `rgba(${Math.round(deepBlue.r)},${Math.round(deepBlue.g)},${Math.round(deepBlue.b)},0.74)`;
+          waterEl.style.background = `linear-gradient(180deg, ${top}, ${bot})`;
+        }
+      } catch (e) { }
+    }, 300);
+
+    // --- Slide 4: specs highlight ---
+    const specNodes = Array.from(document.querySelectorAll('#specList .spec'));
+    let si = 0;
+    setInterval(() => {
+      specNodes.forEach(n => n.classList.remove('active'));
+      specNodes[si].classList.add('active');
+      si = (si + 1) % specNodes.length;
+    }, 1400);
+
+
+
+    // --- Slide 6: live charts from NBS API (no DB) ---
+    const nbsDeviceIdEl = document.getElementById('nbsDeviceId');
+    const nbsWindowEl = document.getElementById('nbsWindow');
+    const nbsLoadBtn = document.getElementById('nbsLoadBtn');
+    const nbsStatus = document.getElementById('nbsStatus');
+    const nbsCount = document.getElementById('nbsCount');
+    const nbsLast = document.getElementById('nbsLast');
+    const nbsNow = document.getElementById('nbsNow');
+    const nbsBat = document.getElementById('nbsBat');
+    const nbsTotalMaxMmEl = document.getElementById('nbsTotalMaxMm');
+    const nbsRadarLrvMmEl = document.getElementById('nbsRadarLrvMm');
+    const nbsRadarUrvMmEl = document.getElementById('nbsRadarUrvMm');
+    const nbsPointNameEl = document.getElementById('nbsPointName');
+
+    // Click em badges dos slides de pontos -> preenche nome, Device ID e LRV no NBS
+    try {
+      const pointSlides = [
+        document.querySelector('section.slide[data-title="limite dos sensores"]'),
+        document.querySelector('section.slide[data-title="Pontos Existentes"]')
+      ].filter(Boolean);
+      const nbsSlide = document.querySelector('section.slide[data-title="Medições ao vivo (NBS)"]');
+      pointSlides.forEach((slideEl) => {
+        const sourceCard = slideEl.querySelector('.content .card');
+        if (!sourceCard) return;
+
+        sourceCard.querySelectorAll('.badge').forEach((badge) => {
+          if (badge.querySelector('b.id') || badge.querySelector('b.lrv') || badge.querySelector('b.name')) badge.style.cursor = 'pointer';
+        });
+
+        sourceCard.addEventListener('click', (ev) => {
+          const badge = ev.target?.closest?.('.badge');
+          if (!badge || !sourceCard.contains(badge)) return;
+          const nameEl = badge.querySelector('b.name');
+          const idEl = badge.querySelector('b.id');
+          const lrvEl = badge.querySelector('b.lrv');
+          const nameValue = String(nameEl?.textContent || '').trim();
+          const idValue = String(idEl?.textContent || '').trim();
+          const lrvValue = String(lrvEl?.textContent || '').trim();
+          if (!idValue || !nbsDeviceIdEl) return;
+
+          if (nbsPointNameEl) {
+            nbsPointNameEl.textContent = nameValue || '—';
+            nbsPointNameEl.style.color = 'var(--text)';
+          }
+
+          nbsDeviceIdEl.value = idValue;
+          nbsDeviceIdEl.dispatchEvent(new Event('input', { bubbles: true }));
+
+          if (nbsRadarLrvMmEl && lrvValue) {
+            nbsRadarLrvMmEl.value = lrvValue;
+            nbsRadarLrvMmEl.dispatchEvent(new Event('input', { bubbles: true }));
+          }
+
+          if (nbsStatus) {
+            nbsStatus.innerHTML = `<b>Status:</b> Nome, Device ID e LRV preenchidos a partir do ponto selecionado.`;
+          }
+
+          const targetIndex = slides.findIndex((s) => s === nbsSlide || String(s.dataset.title || '') === 'Medições ao vivo (NBS)');
+          if (targetIndex >= 0) {
+            idx = targetIndex;
+            render();
+          }
+
+          setTimeout(() => {
+            try { nbsDeviceIdEl.focus(); nbsDeviceIdEl.select(); } catch (_) { }
+          }, 0);
+        });
+      });
+    } catch (_) { }
+
+    function getDecodeOpts() {
+      const totalMaxMm = Number(nbsTotalMaxMmEl?.value || 0);
+      const radarLrvMm = Number(nbsRadarLrvMmEl?.value || 0);
+      const radarUrvMm = Number(nbsRadarUrvMmEl?.value || 0);
+      // mmPerStep: legado (q em passos) para alguns NB300 (22 bytes)
+      return { totalMaxMm, radarLrvMm, radarUrvMm, mmPerStep: 15, rawRef: 6730, vRef: 3.6 };
+    }
+
+    const nbsAutoSwitch = document.getElementById('nbsAuto');
+    let nbsAuto = false;
+    let nbsTimer = null;
+
+    const levelCanvas = document.getElementById('levelChart');
+    const batCanvas = document.getElementById('batteryChart');
+    let nbsCache = { levelSeries: [], batSeries: [] };
+
+
+    // Hover tooltip: mostra valor no ponto mais próximo do cursor
+    attachCanvasTooltip(levelCanvas, () => nbsCache.levelSeries, (p) => `<div class="v">Nível: ${Number(p.y).toFixed(3)} m</div>`);
+    attachCanvasTooltip(batCanvas, () => nbsCache.batSeries, (p) => `<div class="v">Bateria: ${Number(p.y).toFixed(2)} V</div>`);
+
+
+    function fmtPtBR(dt) {
+      try {
+        return new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short', timeStyle: 'medium' }).format(dt);
+      } catch (_) {
+        return dt.toLocaleString('pt-BR');
+      }
+    }
+
+    function normalizeTs(v) {
+      if (!v) return null;
+      // already Date
+      if (v instanceof Date) return isNaN(v.getTime()) ? null : v;
+      // numeric epoch
+      if (typeof v === 'number') {
+        // seconds vs ms heuristic
+        const ms = v < 2e12 ? (v < 2e10 ? v * 1000 : v) : v;
+        const d = new Date(ms);
+        return isNaN(d.getTime()) ? null : d;
+      }
+      // string
+      if (typeof v === 'string') {
+        // numeric string
+        if (/^\d{10,13}$/.test(v.trim())) {
+          const n = Number(v.trim());
+          return normalizeTs(n);
+        }
+        const d = new Date(v);
+        return isNaN(d.getTime()) ? null : d;
+      }
+      return null;
+    }
+
+    function pick(obj, paths) {
+      for (const p of paths) {
+        const parts = p.split('.');
+        let cur = obj;
+        let ok = true;
+        for (const k of parts) {
+          if (cur && Object.prototype.hasOwnProperty.call(cur, k)) cur = cur[k];
+          else { ok = false; break; }
+        }
+        if (ok && cur !== undefined && cur !== null) return cur;
+      }
+      return null;
+    }
+
+    function normalizeLevel(raw) {
+      if (raw === null || raw === undefined) return null;
+      const n = Number(raw);
+      if (!isFinite(n)) return null;
+
+      // If looks like millimeters, convert to meters
+      if (n > 50 && n <= 50000) return n / 1000;
+      // If already meters (0..50)
+      if (n >= -5 && n <= 60) return n;
+
+      // fallback: don't guess too hard
+      return n;
+    }
+
+    function normalizeBattery(raw) {
+      if (raw === null || raw === undefined) return null;
+      const n = Number(raw);
+      if (!isFinite(n)) return null;
+
+      // Normalizações comuns:
+      // - 3600 (mV) => 3.6V
+      if (n >= 1000 && n <= 6000) return n / 1000;
+      // - 36 (décimos de volt) => 3.6V
+      if (n > 20 && n < 80) return n / 10;
+      // - já em volts
+      if (n > 1.0 && n < 20) return n;
+
+      return n;
+    }
+
+    function resizeCanvasToDisplaySize(canvas) {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      const w = Math.max(10, Math.floor(rect.width * dpr));
+      const h = Math.max(10, Math.floor(rect.height * dpr));
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+        return true;
+      }
+      return false;
+    }
+
+    function drawLineChart(canvas, series, opts) {
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // guarda parâmetros para redraw em hover
+      canvas.__drawSeries = series;
+      canvas.__drawOpts = opts;
+
+      resizeCanvasToDisplaySize(canvas);
+
+      const w = canvas.width, h = canvas.height;
+      ctx.clearRect(0, 0, w, h);
+
+      const pad = Math.floor(18 * (window.devicePixelRatio || 1));
+      const plotW = w - pad * 2;
+      const plotH = h - pad * 2;
+
+      // background grid
+      ctx.globalAlpha = 1;
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'rgba(255,255,255,.06)';
+      const gridN = 4;
+      for (let i = 0; i <= gridN; i++) {
+        const y = pad + (plotH / gridN) * i;
+        ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(pad + plotW, y); ctx.stroke();
+      }
+
+      if (!series || series.length < 2) {
+        ctx.fillStyle = 'rgba(255,255,255,.55)';
+        ctx.font = `${Math.floor(12 * (window.devicePixelRatio || 1))}px ui-sans-serif,system-ui`;
+        ctx.fillText('Sem dados suficientes para plotar', pad, pad + Math.floor(plotH / 2));
+        return;
+      }
+
+      const ys = series.map(p => p.y).filter(v => Number.isFinite(v));
+      const xs = series.map(p => p.x.getTime());
+
+      let minY = Math.min(...ys), maxY = Math.max(...ys);
+      if (minY === maxY) { minY -= 1; maxY += 1; }
+      const yPad = (maxY - minY) * 0.08;
+      minY -= yPad; maxY += yPad;
+
+      const minX = Math.min(...xs), maxX = Math.max(...xs);
+
+      function xToPx(t) {
+        if (maxX === minX) return pad;
+        return pad + ((t - minX) / (maxX - minX)) * plotW;
+      }
+      function yToPx(v) {
+        return pad + (1 - ((v - minY) / (maxY - minY))) * plotH;
+      }
+
+      // line
+      ctx.strokeStyle = 'rgba(56,189,248,.95)';
+      ctx.lineWidth = Math.max(2, Math.floor(1.5 * (window.devicePixelRatio || 1)));
+      ctx.beginPath();
+      let started = false;
+      for (const p of series) {
+        if (!Number.isFinite(p.y) || !(p.x instanceof Date)) continue;
+        const x = xToPx(p.x.getTime());
+        const y = yToPx(p.y);
+        if (!started) { ctx.moveTo(x, y); started = true; }
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // markers: ponto atual (hover) + último ponto (referência)
+      const last = series.slice().reverse().find(p => Number.isFinite(p.y) && p.x instanceof Date);
+      const hoverP = canvas.__hoverPoint;
+
+      // último ponto (referência) — mais discreto
+      if (last) {
+        const x = xToPx(last.x.getTime());
+        const y = yToPx(last.y);
+        ctx.fillStyle = 'rgba(34,197,94,.35)';
+        ctx.beginPath(); ctx.arc(x, y, Math.max(3, Math.floor(2.4 * (window.devicePixelRatio || 1))), 0, Math.PI * 2); ctx.fill();
+      }
+
+      // hover (bolinha verde) — segue o mouse
+      if (hoverP && hoverP.x instanceof Date && Number.isFinite(hoverP.y)) {
+        const x = xToPx(hoverP.x.getTime());
+        const y = yToPx(hoverP.y);
+        // linha guia
+        ctx.strokeStyle = 'rgba(255,255,255,.12)';
+        ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, pad + plotH); ctx.stroke();
+
+        ctx.fillStyle = 'rgba(34,197,94,.98)';
+        ctx.beginPath(); ctx.arc(x, y, Math.max(5, Math.floor(3.6 * (window.devicePixelRatio || 1))), 0, Math.PI * 2); ctx.fill();
+      }
+
+      // axes labels (min/max)
+      ctx.fillStyle = 'rgba(255,255,255,.62)';
+      ctx.font = `${Math.floor(11 * (window.devicePixelRatio || 1))}px ui-sans-serif,system-ui`;
+      const label = (v) => (opts && opts.formatY) ? opts.formatY(v) : String(v.toFixed(2));
+      ctx.fillText(label(maxY), pad, pad - 4);
+      ctx.fillText(label(minY), pad, pad + plotH + Math.floor(14 * (window.devicePixelRatio || 1)));
+
+      // time range label
+      const leftDt = new Date(minX);
+      const rightDt = new Date(maxX);
+      const rangeTxt = `${leftDt.toLocaleString('pt-BR')}  →  ${rightDt.toLocaleString('pt-BR')}`;
+      ctx.fillStyle = 'rgba(255,255,255,.42)';
+      ctx.font = `${Math.floor(10 * (window.devicePixelRatio || 1))}px ui-sans-serif,system-ui`;
+      ctx.fillText(rangeTxt, pad, h - Math.floor(6 * (window.devicePixelRatio || 1)));
+    }
+
+
+    // Tooltip (hover) para gráficos em canvas
+    let chartTipEl = null;
+    function getChartTipEl() {
+      if (!chartTipEl) chartTipEl = document.getElementById('chartTip');
+      return chartTipEl;
+    }
+
+    function showTip(x, y, html) {
+      const el = getChartTipEl();
+      if (!el) return;
+      el.innerHTML = html;
+      el.style.visibility = 'visible';
+      el.style.opacity = '1';
+      const pad = 14;
+      // evita sair da tela
+      // se ainda não calculou, força layout
+      const r2 = el.getBoundingClientRect();
+      const w = r2.width;
+      const h = r2.height;
+
+      let tx = x + pad;
+      let ty = y + pad;
+      if (tx + w + 8 > window.innerWidth) tx = x - w - pad;
+      if (ty + h + 8 > window.innerHeight) ty = y - h - pad;
+
+      el.style.transform = `translate(${Math.max(8, tx)}px,${Math.max(8, ty)}px)`;
+    }
+
+    function hideTip() {
+      const el = getChartTipEl();
+      if (!el) return;
+      el.style.transform = 'translate(-9999px,-9999px)';
+      el.style.opacity = '0';
+      el.style.visibility = 'hidden';
+      el.innerHTML = '';
+    }
+
+    function nearestPointByTime(series, tMs) {
+      // series: [{x:Date,y:number}] ordenado
+      if (!series || series.length === 0) return null;
+      let lo = 0, hi = series.length - 1;
+      while (lo < hi) {
+        const mid = (lo + hi) >> 1;
+        const v = series[mid].x instanceof Date ? series[mid].x.getTime() : NaN;
+        if (!Number.isFinite(v)) { lo = mid + 1; continue; }
+        if (v < tMs) lo = mid + 1;
+        else hi = mid;
+      }
+      const i = lo;
+      const a = series[i];
+      const b = series[Math.max(0, i - 1)];
+      if (!a || !(a.x instanceof Date)) return b && b.x instanceof Date ? b : null;
+      if (!b || !(b.x instanceof Date)) return a;
+      const da = Math.abs(a.x.getTime() - tMs);
+      const db = Math.abs(b.x.getTime() - tMs);
+      return da <= db ? a : b;
+    }
+
+    function attachCanvasTooltip(canvas, getSeries, formatValueHtml) {
+      if (!canvas) return;
+      const move = (ev) => {
+        const seriesRaw = (typeof getSeries === 'function') ? getSeries() : null;
+        const series = (seriesRaw || []).filter(p => p && p.x instanceof Date && Number.isFinite(p.y));
+        if (series.length < 2) { hideTip(); return; }
+
+        // garante ordenação por tempo
+        series.sort((a, b) => a.x.getTime() - b.x.getTime());
+
+        const rect = canvas.getBoundingClientRect();
+        const mx = ev.clientX - rect.left;
+        const my = ev.clientY - rect.top;
+
+        const pad = 18; // mesmo conceito do drawLineChart (em CSS px, bom o suficiente para hover)
+        const plotW = Math.max(1, rect.width - pad * 2);
+
+        const xs = series.map(p => p.x.getTime());
+        const minX = Math.min(...xs), maxX = Math.max(...xs);
+        if (maxX === minX) { hideTip(); return; }
+
+        const tMs = minX + ((mx - pad) / plotW) * (maxX - minX);
+        const p = nearestPointByTime(series, tMs);
+        if (!p) { hideTip(); return; }
+
+        // move a bolinha verde para o ponto mais próximo
+        canvas.__hoverPoint = p;
+        if (canvas.__drawSeries) {
+          // redesenha imediatamente usando os últimos parâmetros
+          drawLineChart(canvas, canvas.__drawSeries, canvas.__drawOpts || {});
+        }
+
+        const tTxt = fmtPtBR(p.x);
+        const vHtml = (typeof formatValueHtml === 'function') ? formatValueHtml(p) : `<div class="v">${p.y}</div>`;
+        showTip(ev.clientX, ev.clientY, `<div class="t">${tTxt}</div>${vHtml}`);
+      };
+
+      const leave = () => {
+        hideTip();
+        // remove hover marker e redesenha
+        canvas.__hoverPoint = null;
+        if (canvas.__drawSeries) drawLineChart(canvas, canvas.__drawSeries, canvas.__drawOpts || {});
+      };
+      canvas.addEventListener('mousemove', move);
+      canvas.addEventListener('mouseleave', leave);
+      canvas.addEventListener('touchstart', (e) => { if (e.touches && e.touches[0]) move(e.touches[0]); }, { passive: true });
+      canvas.addEventListener('touchmove', (e) => { if (e.touches && e.touches[0]) move(e.touches[0]); }, { passive: true });
+      canvas.addEventListener('touchend', leave, { passive: true });
+    }
+
+    function b64ToU8(b64) {
+      try {
+        const bin = atob(String(b64 || '').trim());
+        const u8 = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+        return u8;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    // Fallback decoder (heurística) para payloads NBS em Base64
+    // - bateria: byte (len-4) em décimos de volt => 36 => 3.6V
+    // - nível: último byte (q), com zero em 40 e passo 15mm (padrão legado)
+    // Observação: se o seu backend já converte 4–20mA => nível, ele pode vir em outros campos.
+
+    // Decoder com auto-detecção por tamanho do payload (22/24/39 bytes)
+    // - 22 bytes (NB300): pode ser LEGADO (q em passos) ou ANALÓGICO 4–20mA no último byte
+    // - 24 bytes (NB300/5): bytes 21/22/23 = décimos de mA (4–20mA) com 3 amostras
+    // - 39 bytes (Echo R1): analógico 4–20mA em 21/22/23 OU legado (3 float32 LE distâncias)
+    function decodeFromMessageAuto(msg, opts) {
+      const b64 = pick(msg, ['data', 'payload', 'payload_raw', 'raw', 'message', 'uplink_message.frm_payload', 'uplink_message.payload']);
+      if (!b64 || typeof b64 !== 'string') return { level: null, battery: null, decoded: false, scheme: null, samples: null };
+
+      const u8 = b64ToU8(b64);
+      if (!u8 || u8.length < 6) return { level: null, battery: null, decoded: false, scheme: null, samples: null };
+
+      const len = u8.length;
+
+      const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+      const toMa = (byte) => (Number.isFinite(byte) ? (byte / 10) : NaN);
+
+      const resolveRangeMm = () => {
+        const totalMaxMm = Number(opts?.totalMaxMm || 0);
+        const radarLrvMm = Number(opts?.radarLrvMm || 0);
+        const radarUrvMm = Number(opts?.radarUrvMm || 0);
+
+        const lrv = (Number.isFinite(radarLrvMm) && radarLrvMm > 0) ? radarLrvMm
+          : ((Number.isFinite(totalMaxMm) && totalMaxMm > 0) ? totalMaxMm : 0);
+        const urv = (Number.isFinite(radarUrvMm) && radarUrvMm >= 0) ? radarUrvMm : 0;
+        const span = lrv - urv;
+        return {
+          lrv, urv,
+          span: (Number.isFinite(span) && span > 0) ? span : ((Number.isFinite(totalMaxMm) && totalMaxMm > 0) ? totalMaxMm : 0),
+        };
+      };
+
+      const maToLevelMm = (mA) => {
+        const { span } = resolveRangeMm();
+        if (!span || !Number.isFinite(mA)) return NaN;
+        const frac = (mA - 4) / 16;
+        return clamp(frac * span, 0, span);
+      };
+
+      const distanceToLevelMm = (distanceMm) => {
+        const { lrv, span } = resolveRangeMm();
+        if (!span || !Number.isFinite(distanceMm)) return NaN;
+        return clamp(lrv - distanceMm, 0, span);
+      };
+
+      const batteryFromNbs = () => {
+        // heurística do nbs300.decode.js: preferir byte 18 se plausível (10..60), senão len-4
+        const candFixedIdx = 18;
+        const candRelIdx = len - 4;
+        const candFixed = (len > candFixedIdx) ? Number(u8[candFixedIdx]) : NaN;
+        const candRel = (candRelIdx >= 0 && candRelIdx < len) ? Number(u8[candRelIdx]) : NaN;
+        const fixedPlausible = Number.isFinite(candFixed) && candFixed >= 10 && candFixed <= 60;
+        const relPlausible = Number.isFinite(candRel) && candRel >= 10 && candRel <= 60;
+        const idxBatt = (fixedPlausible && !relPlausible) ? candFixedIdx : candRelIdx;
+        const batByte = (idxBatt >= 0 && idxBatt < len) ? u8[idxBatt] : null;
+        return normalizeBattery(batByte); // -> V
+      };
+
+      const float32LE = (off) => {
+        if (off < 0 || off + 4 > len) return NaN;
+        const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
+        return dv.getFloat32(off, true);
+      };
+      const uint16LE = (off) => {
+        if (off < 0 || off + 2 > len) return NaN;
+        const dv = new DataView(u8.buffer, u8.byteOffset, u8.byteLength);
+        return dv.getUint16(off, true);
+      };
+
+      // --- 22 bytes (NB300) ---
+      if (len === 22) {
+        const q = Number(u8[21]);
+        const looksAnalog = Number.isFinite(q) && q >= 40 && q <= 200; // 4.0..20.0 mA
+        const battery = batteryFromNbs();
+
+        if (looksAnalog) {
+          const mA = toMa(q);
+          const levelMm = maToLevelMm(mA);
+          const level = normalizeLevel(levelMm); // mm -> m
+          return { level, battery, decoded: true, scheme: 'NB300_22_ANALOG', samples: [{ offsetMin: 0, idx: 21, q, mA, levelMm }] };
+        } else {
+          const step = Number(opts?.mmPerStep || 15);
+          const levelMm = (q - 40) * (Number.isFinite(step) && step > 0 ? step : 15);
+          const level = normalizeLevel(levelMm);
+          return { level, battery, decoded: true, scheme: 'NB300_22_LEGACY', samples: [{ offsetMin: 0, idx: 21, q, levelMm }] };
+        }
+      }
+
+      // --- 24 bytes (NB300/5) ---
+      if (len === 24) {
+        const b0 = Number(u8[21]), b1 = Number(u8[22]), b2 = Number(u8[23]);
+        const mA0 = toMa(b0), mA1 = toMa(b1), mA2 = toMa(b2);
+        const battery = batteryFromNbs();
+
+        const s0 = { offsetMin: 0, idx: 21, q: b0, mA: mA0, levelMm: maToLevelMm(mA0) };
+        const s1 = { offsetMin: -5, idx: 22, q: b1, mA: mA1, levelMm: maToLevelMm(mA1) };
+        const s2 = { offsetMin: -10, idx: 23, q: b2, mA: mA2, levelMm: maToLevelMm(mA2) };
+        const level = normalizeLevel(s0.levelMm);
+
+        return { level, battery, decoded: true, scheme: 'NB300_5_24_ANALOG', samples: [s0, s1, s2] };
+      }
+
+      // --- 39 bytes (Echo R1) ---
+      if (len === 39) {
+        // bateria raw uint16 LE no offset 37 (echoR1.decode.js)
+        const battRaw = uint16LE(37);
+        const rawRef = Number(opts?.rawRef ?? 6730);
+        const vRef = Number(opts?.vRef ?? 3.6);
+        const k = (rawRef > 0) ? (vRef / rawRef) : 0;
+
+        // cálculo principal (ADC->V)
+        let battery = (Number.isFinite(battRaw) && battRaw > 0) ? Number((battRaw * k).toFixed(3)) : null;
+
+        // fallback: se valor ficar fora do plausível, usa heurística NB (byte 18 / len-4 em décimos de volt)
+        if (!(Number.isFinite(battery) && battery >= 1.5 && battery <= 6.0)) {
+          const fb = batteryFromNbs();
+          if (Number.isFinite(fb)) battery = fb;
+        }
+
+        const b0 = Number(u8[21]), b1 = Number(u8[22]), b2 = Number(u8[23]);
+        const looksAnalog = [b0, b1, b2].every(b => Number.isFinite(b) && b >= 40 && b <= 200);
+
+        if (looksAnalog) {
+          const mA0 = toMa(b0), mA1 = toMa(b1), mA2 = toMa(b2);
+          const s0 = { offsetMin: 0, idx: 21, q: b0, mA: mA0, levelMm: maToLevelMm(mA0) };
+          const s1 = { offsetMin: -5, idx: 22, q: b1, mA: mA1, levelMm: maToLevelMm(mA1) };
+          const s2 = { offsetMin: -10, idx: 23, q: b2, mA: mA2, levelMm: maToLevelMm(mA2) };
+          const level = normalizeLevel(s0.levelMm);
+          return { level, battery, decoded: true, scheme: 'ECHO_R1_39_ANALOG', samples: [s0, s1, s2] };
+        }
+
+        // legado: 3 float32 LE (distância em metros) nos offsets 21/27/33
+        const m1 = float32LE(21);
+        const m2 = float32LE(27);
+        const m3 = float32LE(33);
+        const avg = m1; // compat com decoder do projeto
+        const distanceMm = Number.isFinite(avg) ? (avg * 1000) : NaN;
+        const levelMm = distanceToLevelMm(distanceMm);
+        const level = normalizeLevel(levelMm);
+        return { level, battery, decoded: true, scheme: 'ECHO_R1_39_LEGACY', samples: [{ idx: 21, m: m1 }, { idx: 27, m: m2 }, { idx: 33, m: m3 }] };
+      }
+
+      // desconhecido: cai no heurístico legado (len-4 e último byte)
+      const batByte = u8.length >= 4 ? u8[u8.length - 4] : null;
+      const q = u8[u8.length - 1];
+      const battery = normalizeBattery(batByte);
+      let level = null;
+      if (Number.isFinite(q)) {
+        const mmPerStep = 15;
+        const levelMm = (q - 40) * mmPerStep;
+        level = normalizeLevel(levelMm);
+      }
+      return { level, battery, decoded: true, scheme: `UNKNOWN_${len}`, samples: null };
+    }
+
+    function parseNbsMessages(jsonArr, limit, decodeOpts) {
+      const rows = [];
+      const arr = Array.isArray(jsonArr)
+        ? jsonArr
+        : (Array.isArray(jsonArr?.data) ? jsonArr.data
+          : (Array.isArray(jsonArr?.messages) ? jsonArr.messages
+            : (Array.isArray(jsonArr?.result) ? jsonArr.result : [])));
+
+      const sliced = arr.slice(0, Math.max(0, limit || 200));
+
+      for (const m of sliced) {
+        const tsRaw = pick(m, [
+          // comuns
+          'timestamp', 'ts', 'time', 'createdAt', 'receivedAt', 'received_at', 'date', 'datetime', 'created_at',
+          'deviceTime', 'serverTime',
+          // gateways/lorawan (ex: TTN)
+          'uplink_message.received_at', 'uplink_message.settings.time', 'uplink_message.rx_metadata.0.time'
+        ]);
+        const ts = normalizeTs(tsRaw);
+
+        // Tenta múltiplos caminhos comuns para nível e bateria
+        let lvlRaw = pick(m, [
+          'level', 'level_m', 'levelMeter', 'levelMeters',
+          'level_mm', 'nivel', 'nivel_m', 'nivel_mm',
+          'decoded.level', 'decoded.level_m', 'decoded.level_mm', 'decoded.nivel', 'decoded.nivel_m', 'decoded.nivel_mm',
+          'payload.level', 'payload.level_m', 'payload.level_mm',
+          'dataDecoded.level', 'dataDecoded.level_m', 'dataDecoded.level_mm',
+          // lorawan/decoded payloads
+          'uplink_message.decoded_payload.level', 'uplink_message.decoded_payload.level_m', 'uplink_message.decoded_payload.level_mm',
+          'uplink_message.decoded_payload.nivel', 'uplink_message.decoded_payload.nivel_m', 'uplink_message.decoded_payload.nivel_mm'
+        ]);
+
+        let batRaw = pick(m, [
+          'battery', 'battery_v', 'batteryV', 'bat', 'bateria', 'bateria_v',
+          'decoded.battery', 'decoded.battery_v', 'decoded.bateria', 'decoded.bateria_v',
+          'payload.battery', 'payload.battery_v',
+          'dataDecoded.battery', 'dataDecoded.battery_v',
+          // lorawan/decoded payloads
+          'uplink_message.decoded_payload.battery', 'uplink_message.decoded_payload.battery_v',
+          'uplink_message.decoded_payload.bateria', 'uplink_message.decoded_payload.bateria_v'
+        ]);
+
+        let level = normalizeLevel(lvlRaw);
+        let battery = normalizeBattery(batRaw);
+
+        // Se não veio nada "decodificado", tenta decoder fallback do Base64
+        if ((!Number.isFinite(level) && !Number.isFinite(battery))) {
+          const fb = decodeFromMessageAuto(m, decodeOpts);
+          if (Number.isFinite(fb.level)) level = fb.level;
+          if (Number.isFinite(fb.battery)) battery = fb.battery;
+        }
+
+        if (!ts || (!Number.isFinite(level) && !Number.isFinite(battery))) continue;
+        rows.push({ ts, level, battery });
+      }
+
+      rows.sort((a, b) => a.ts - b.ts);
+      return rows;
+    }
+
+    async function loadNbs() {
+      const deviceId = String(nbsDeviceIdEl?.value || '').trim();
+      const decodeOpts = getDecodeOpts();
+      if (!deviceId) {
+        nbsStatus.innerHTML = `<b>Status:</b> informe um Device ID válido.`;
+        return;
+      }
+
+      const limit = Number(nbsWindowEl?.value || 120) || 120;
+      const url = `https://nbs300.udev.com.br/api/messages?deviceIds[]=${encodeURIComponent(deviceId)}`;
+
+      nbsStatus.innerHTML = `<b>Status:</b> buscando no NBS…`;
+      try {
+        const res = await fetch(url, { method: 'GET', headers: { 'Accept': 'application/json' } });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        const json = await res.json();
+        const rows = parseNbsMessages(json, limit, decodeOpts);
+
+        nbsCount.textContent = rows.length ? String(rows.length) : '0';
+        nbsLast.textContent = fmtPtBR(new Date());
+
+        const last = rows.length ? rows[rows.length - 1] : null;
+        nbsNow.textContent = (last && Number.isFinite(last.level)) ? `${last.level.toFixed(2)} m` : '—';
+        nbsBat.textContent = (last && Number.isFinite(last.battery)) ? `${last.battery.toFixed(2)} V` : '—';
+
+        if (!rows.length) {
+          nbsStatus.innerHTML = `<b>Status:</b> sem dados parseáveis para este Device ID.`;
+        } else {
+          nbsStatus.innerHTML = `<b>Status:</b> ok. Fonte: NBS (tempo real)`;
+        }
+
+        // build series
+        const levelSeries = rows.filter(r => Number.isFinite(r.level)).map(r => ({ x: r.ts, y: r.level }));
+        const batSeries = rows.filter(r => Number.isFinite(r.battery)).map(r => ({ x: r.ts, y: r.battery }));
+        nbsCache = { levelSeries, batSeries };
+
+        drawLineChart(levelCanvas, levelSeries, { formatY: (v) => `${v.toFixed(2)} m` });
+        drawLineChart(batCanvas, batSeries, { formatY: (v) => `${v.toFixed(2)} V` });
+
+      } catch (err) {
+        const msg = String(err?.message || err);
+        nbsStatus.innerHTML = `<b>Status:</b> falha ao acessar a API (${msg}).`;
+        nbsCount.textContent = '—';
+        nbsLast.textContent = fmtPtBR(new Date());
+        // still clear charts
+        nbsCache = { levelSeries: [], batSeries: [] };
+        drawLineChart(levelCanvas, [], {});
+        drawLineChart(batCanvas, [], {});
+      }
+    }
+
+    function setNbsAuto(on) {
+      nbsAuto = on;
+      nbsAutoSwitch?.classList.toggle('on', nbsAuto);
+      if (nbsTimer) clearInterval(nbsTimer);
+      if (nbsAuto) {
+        nbsTimer = setInterval(() => loadNbs(), 30000);
+        loadNbs();
+      }
+    }
+
+    nbsLoadBtn?.addEventListener('click', () => loadNbs());
+    nbsDeviceIdEl?.addEventListener('input', () => {
+      const current = String(nbsDeviceIdEl?.value || '').trim();
+      if (current) return;
+      if (nbsPointNameEl) {
+        nbsPointNameEl.textContent = '—';
+        nbsPointNameEl.style.color = 'var(--muted)';
+      }
+    });
+    nbsDeviceIdEl?.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadNbs(); });
+    nbsAutoSwitch?.addEventListener('click', () => setNbsAuto(!nbsAuto));
+
+    // re-render charts on resize (keeps crispness) — without refetch
+    window.addEventListener('resize', () => {
+      if (nbsCache?.levelSeries?.length) drawLineChart(levelCanvas, nbsCache.levelSeries, { formatY: (v) => `${v.toFixed(2)} m` });
+      if (nbsCache?.batSeries?.length) drawLineChart(batCanvas, nbsCache.batSeries, { formatY: (v) => `${v.toFixed(2)} V` });
+    });
+
+
+    render();
+    // start autoplay OFF by default (comercial costuma ser manual)
+    setAutoplay(false);
+  </script>
+
+  <div id="chartTip" class="chartTip" aria-hidden="true"></div>
+  <script>
+    // Lottie — Abertura institucional (Slide 1)
+    (function () {
+      function init() {
+        var el = document.getElementById('lottieEcojobIntro');
+        if (!el || !window.lottie) return;
+        // evita duplicar
+        if (el.__lottieInited) return;
+        el.__lottieInited = true;
+        window.lottie.loadAnimation({
+          container: el,
+          renderer: 'svg',
+          loop: false,
+          autoplay: true,
+          path: 'ecojob_intro_A.json'
+        });
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+  </script>
+</body>
+
+</html>
