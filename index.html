@@ -8,8 +8,8 @@
   <title>Ecojob — Echo-R2 | Apresentação Comercial</title>
   <style>
     :root {
-      --bg0: #06121f;
-      --bg1: #020617;
+      --bg0: #113153;
+      --bg1: #081753;
       --card: #0b1b2b;
       --card2: #0a1524;
       --stroke: rgba(255, 255, 255, .10);
@@ -37,7 +37,7 @@
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
-      background: radial-gradient(1200px 700px at 20% 15%, rgba(56, 189, 248, .14), transparent 55%),
+      background: radial-gradient(1200px 700px at 20% 15%, rgba(76, 179, 223, 0.14), transparent 55%),
         radial-gradient(1000px 600px at 80% 25%, rgba(34, 197, 94, .12), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
       color: var(--text);
@@ -102,6 +102,12 @@
     .brand span {
       color: var(--muted);
       font-size: 12px
+    }
+
+    /* garantir que textos em <span> e <b> apareçam brancos */
+    span,
+    b,p {
+      color: var(--text) !important;
     }
 
     .controls {
@@ -192,7 +198,7 @@
       height: 18px;
       border-radius: 50%;
       background: rgba(56, 189, 248, .95);
-      box-shadow: 0 8px 20px rgba(56, 189, 248, .22);
+      box-shadow: 0 8px 20px rgba(152, 184, 197, 0.22);
       transition: .22s;
     }
 
